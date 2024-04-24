@@ -1,15 +1,100 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #282c3460;
-  color: white;
-  margin: 0;
-  padding: 1rem;
+/* Pantalla xs */
+@media (min-width: 475px) {
+  .container {
+    max-width: 475px;
+  }
+  
 }
 
-.App {
+/* Pantalla sm */
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+/* Pantalla md */
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+/* Pantalla lg */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+/* Pantalla xl */
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+/* Pantalla xxl */
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #303a50;
+  color: white;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #1a2238;
+  border-radius: 0.5rem;
+}
+
+.body {
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  flex: 1;
+}
+
+.left-side {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  flex: 2;
+  background-color: #1a2238;
+  opacity: 0.8;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.right-side {
+  display: grid;
+  gap: 1rem;
+  background-color: #1a2238;
+  opacity: 0.8;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1.5fr));
+  grid-auto-rows: 200px;
 }

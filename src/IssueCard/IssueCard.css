@@ -9,6 +9,7 @@
     align-items: center;
     color: white;
     width: 180px;
+    height: fit-content;
 }
 
 .second-title {
