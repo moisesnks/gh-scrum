@@ -2,7 +2,9 @@ import React from "react";
 import "./IssueCard.css";
 import { MainIcon, TasksIcon } from "../Icons";
 
-const IssueCard = ({ issue, isBusy = false, assignedTo = [""] }) => {
+const IssueCard = ({ issue }) => {
+    // Extraer isBusy y assignedTo del objeto issue, proporcionando valores predeterminados si no están presentes
+    const { isBusy = false, assignedTo = [{ name: "", icon: "" }] } = issue;
     const showAssigned = isBusy && assignedTo.length > 0;
     const additionalAssigned = Math.max(0, assignedTo.length - 1);
 
@@ -30,7 +32,7 @@ const IssueCard = ({ issue, isBusy = false, assignedTo = [""] }) => {
             </div>
 
             {showAssigned && (
-                <>
+                <div className="assigned">
                     <img
                         src={assignedTo[0].icon}
                         alt={assignedTo[0].name}
@@ -39,7 +41,8 @@ const IssueCard = ({ issue, isBusy = false, assignedTo = [""] }) => {
                     {additionalAssigned > 0 && (
                         <span className="circle">{`+${additionalAssigned}`}</span>
                     )}
-                </>
+                </div>
+
             )}
         </div>
     );

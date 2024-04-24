@@ -48,3 +48,24 @@
     padding: 0px 10px 0px 10px;
     margin-bottom: 10px;
 }
+
+
+.assigned {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.assigned img {
+    width: 30px;
+    border-radius: 50%;
+}
+
+.circle {
+    background-color: #52DBBD;
+    padding: 5px;
+    border-radius: 50%;
+    font-weight: 600;
+}

@@ -11,7 +11,15 @@ const issues =
                 "Priority": "25",
                 "Size": "25",
                 "Estimate": "25"
-            }
+            },
+            assignedTo: [
+                { "name": "moisesnks", "icon": "https://firebasestorage.googleapis.com/v0/b/lumo-ghub.appspot.com/o/public%2Fmoisesnks.png?alt=media" },
+                { "name": "smnzin", "icon": "https://firebasestorage.googleapis.com/v0/b/lumo-ghub.appspot.com/o/public%2Fsmnzin.jpg?alt=media" },
+                { "name": "juan", "icon": "https://firebasestorage.googleapis.com/v0/b/lumo-ghub.appspot.com/o/public%2Frickroll.jpg?alt=media" },
+                { "name": "héctor salamanca" },
+                { "name": "lucas arancibia" },
+            ],
+            isBusy: true,
         },
         {
             "title": " workflow",
@@ -50,7 +58,15 @@ const issues =
                 "Priority": "25",
                 "Size": "25",
                 "Estimate": "25"
-            }
+            },
+            assignedTo: [
+                { "name": "moisesnks", "icon": "https://firebasestorage.googleapis.com/v0/b/lumo-ghub.appspot.com/o/public%2Fmoisesnks.png?alt=media" },
+                { "name": "smnzin", "icon": "https://firebasestorage.googleapis.com/v0/b/lumo-ghub.appspot.com/o/public%2Fsmnzin.jpg?alt=media" },
+                { "name": "juan", "icon": "https://firebasestorage.googleapis.com/v0/b/lumo-ghub.appspot.com/o/public%2Frickroll.jpg?alt=media" },
+                { "name": "héctor salamanca" },
+                { "name": "lucas arancibia" },
+            ],
+            isBusy: true,
         },
         {
             "title": "Botón con el logo de la aplicación - vender",
@@ -76,7 +92,15 @@ const issues =
                 "Priority": "25",
                 "Size": "25",
                 "Estimate": "25"
-            }
+            },
+            assignedTo: [
+                { "name": "moisesnks", "icon": "https://firebasestorage.googleapis.com/v0/b/lumo-ghub.appspot.com/o/public%2Fmoisesnks.png?alt=media" },
+                { "name": "smnzin", "icon": "https://firebasestorage.googleapis.com/v0/b/lumo-ghub.appspot.com/o/public%2Fsmnzin.jpg?alt=media" },
+                { "name": "juan", "icon": "https://firebasestorage.googleapis.com/v0/b/lumo-ghub.appspot.com/o/public%2Frickroll.jpg?alt=media" },
+                { "name": "héctor salamanca" },
+                { "name": "lucas arancibia" },
+            ],
+            isBusy: true,
         },
         {
             "title": "Corrección de olvidaste tu contraseña",

@@ -1,6 +1,7 @@
 .issues-list-container {
-    border: 3px solid brown;
     max-height: 80vh;
+    overflow: hidden;
+    padding: 0px 0px 0px 10px;
 
 }
 
@@ -12,10 +13,12 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
-    padding-bottom: 200px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    border: 3px solid yellow;
     overflow-y: auto;
+}
+
+.issues-list li:last-child {
+    margin-bottom: 5vh;
 }
