@@ -1,10 +1,9 @@
 import React from 'react';
 import './Avatar.css'; // Archivo CSS para los estilos
 
-const Avatar = ({ capacity = 0, data }) => {
-    // Hay que extraer name y icon de data, pero 
-    // si no se proporciona, se puede usar un valor por defecto
-    const { name = 'Anónimo', icon = `https://ui-avatars.com/api/?name=${name}` } = data || {};
+const Avatar = ({ data }) => {
+    // Si no se proporciona data, se puede usar un objeto vacío como valor por defecto
+    const { name = 'Anónimo', icon = `https://ui-avatars.com/api/?name=${name}`, capacity = 0 } = data || {};
 
     // Calculamos el ángulo del gradiente cónico basado en el capacity proporcionado, pero invertido
     const angulo = 360 - ((capacity / 16) * 360);
