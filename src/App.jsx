@@ -1,12 +1,8 @@
 import React from "react";
-import IssueCard from "./IssueCard/IssueCard.jsx";
-import Avatar from "./Avatar/Avatar.jsx";
-import "./App.css";
 import issues from "./IssuesList/mockup_issues.js"
 import IssuesList from "./IssuesList/IssuesList.jsx"
 import AvatarsList from "./AvatarsList/AvatarsList.jsx"
 import './App.css'
-
 
 const personas = [
   { "name": "moisesnks", "icon": "https://firebasestorage.googleapis.com/v0/b/lumo-ghub.appspot.com/o/public%2Fmoisesnks.png?alt=media", "capacity": 10 },
@@ -30,15 +26,12 @@ const multiplicarPersonas = (personas, cantidad) => {
 
 export default function App() {
   return (
-    <div className="container">
-      <div className="navbar"></div>
-      <div className="body">
-        <div className="left-side">
-          <IssuesList issues={issues} />
-        </div>
-        <div className="right-side">
-          <AvatarsList personas={multiplicarPersonas(personas, 4)} />
-        </div>
+    <div className="App">
+      <div className="half-side">
+        <IssuesList issues={issues} />
+      </div>
+      <div className="half-side">
+        <AvatarsList personas={multiplicarPersonas(personas, 4)} />
       </div>
     </div>
   );
