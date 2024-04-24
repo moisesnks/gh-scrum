@@ -1,53 +1,50 @@
 .issue-card {
-    font-family: 'Roboto', sans-serif;
-    background-color: #22272E;
-    padding: 10px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    color: white;
-    width: 180px;
-}
-
-.second-title {
-    display: flex;
-    flex-direction: column;
-}
-
-.tasks {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
     width: 100%;
+    background-color: rgba(22, 24, 26, 0.767);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    padding: 10px 0px 10px 0px;
 }
 
-.tag {
-    background-color: #1C354A;
-    border: 1px solid #23547A;
-    padding: 10px;
-    border-radius: 20px;
-}
-
-.circle {
-    background-color: #52DBBD;
-    padding: 5px;
-    border-radius: 50%;
-    font-weight: 600;
-}
-
-.assigned {
+.issue-card .title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    justify-content: start;
+    padding: 0px 10px 0px 10px;
     align-items: center;
-    gap: 10px;
 }
 
-.assigned img {
-    width: 30px;
-    border-radius: 50%;
+
+.issue-card .title h1 {
+    font-size: 1rem;
+}
+
+.issue-card .author {
+    padding: 0px 10px 0px 10px;
+}
+
+.issue-card .title .subtitle {
+    padding: 0px 10px 0px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.issue-card .title .subtitle .tag {
+    background-color: #6f42c1;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.issue-card .project-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 10px 0px 10px;
+    margin-bottom: 10px;
 }

@@ -1,16 +1,22 @@
 import React from "react";
 import IssueCard from "./IssueCard/IssueCard.jsx";
 import Avatar from "./Avatar/Avatar.jsx";
+import issues from "./IssuesList/mockup_issues.js"
+import IssuesList from "./IssuesList/IssuesList.jsx"
 import './App.css'
 
 const issue = {
-  Title: "Workflow",
-  Tag: "Feature - Devops",
-  IssueNumber: 15,
-  OpenedBy: "moisesnks",
-  OpenedDate: "24-04-2024",
-  Estimate: 25,
-  Tasks: 15,
+  "title": "Go",
+  "tag": "Spike - Backend",
+  "issue_number": "16",
+  "opened_by": "zkodah",
+  "opened_date": "Apr 24, 2024",
+  "num_tasks": "2",
+  "project_info": {
+    "Priority": "",
+    "Size": "",
+    "Estimate": "8"
+  }
 };
 
 const asignados = [
@@ -24,13 +30,13 @@ const asignados = [
 export default function App() {
   return (
     <div className="App">
-      <IssueCard issue={issue} isBusy={true} assignedTo={asignados} />
-      <IssueCard issue={issue} />
-      <Avatar capacity={0} data={asignados[0]} />
-      <Avatar capacity={18} data={asignados[1]} />
-      <Avatar capacity={16} data={asignados[2]} />
-      <Avatar capacity={10} data={asignados[3]} />
-      <Avatar capacity={8} data={asignados[4]} />
+      <div className="half-side">
+        <IssuesList issues={issues} />
+      </div>
+      <div className="half-side">
+        <IssueCard issue={issue} isBusy={true} assignedTo={asignados} />
+        <Avatar />
+      </div>
     </div>
   );
 }
