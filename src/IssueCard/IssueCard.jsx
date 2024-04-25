@@ -1,12 +1,12 @@
 import React from "react";
 import "./IssueCard.css";
 import { MainIcon, TasksIcon } from "../Icons";
+import ModalAdditionalAssigned from "./ModalAdditionalAssigned";
 
 const IssueCard = ({ issue }) => {
-    // Extraer isBusy y assignedTo del objeto issue, proporcionando valores predeterminados si no están presentes
     const { isBusy = false, assignedTo = [{ name: "", icon: "" }] } = issue;
     const showAssigned = isBusy && assignedTo.length > 0;
-    const additionalAssigned = Math.max(0, assignedTo.length - 1);
+    const additionalAssigned = assignedTo.slice(1);
 
     return (
         <div className="issue-card">
@@ -33,16 +33,12 @@ const IssueCard = ({ issue }) => {
 
             {showAssigned && (
                 <div className="assigned">
-                    <img
-                        src={assignedTo[0].icon}
-                        alt={assignedTo[0].name}
-                    />
+                    <img src={assignedTo[0].icon} alt={assignedTo[0].name} />
                     <span><b> {assignedTo[0].name} </b> </span>
-                    {additionalAssigned > 0 && (
-                        <span className="circle">{`+${additionalAssigned}`}</span>
+                    {additionalAssigned.length > 0 && (
+                        <ModalAdditionalAssigned additionalAssigned={assignedTo} />
                     )}
                 </div>
-
             )}
         </div>
     );

@@ -65,8 +65,38 @@
 }
 
 .circle {
-    background-color: #52DBBD;
-    padding: 5px;
+    position: relative;
+    display: inline-block;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
-    font-weight: 600;
+    background-color: #6f42c1;
+    color: white;
+    font-size: 1rem;
+    line-height: 2.5rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.circle:hover .circle-content {
+    display: none;
+}
+
+.circle:hover .eye-icon {
+    display: block;
+}
+
+.circle-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.eye-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
 }
