@@ -234,4 +234,26 @@ const issues =
         }
     ]
 
+// Function to generate random estimates between 5 and 16
+const generateRandomEstimate = () => {
+    return Math.floor(Math.random() * (16 - 5 + 1)) + 5;
+};
+
+// Loop through each issue and assign a random estimate
+issues.forEach(issue => {
+    issue.project_info.Estimate = generateRandomEstimate().toString();
+});
+
+// Modificar priority para que tenga un valor random entre ["P0", "P1", "P2", "P3"]
+const priorities = ["P0", "P1", "P2"];
+issues.forEach(issue => {
+    issue.project_info.Priority = priorities[Math.floor(Math.random() * priorities.length)];
+});
+
+// Modificar size para que tenga un valor random entre ["S", "M", "L", "XL"]
+const sizes = ["S", "M", "L", "XL"];
+issues.forEach(issue => {
+    issue.project_info.Size = sizes[Math.floor(Math.random() * sizes.length)];
+});
+
 export default issues;

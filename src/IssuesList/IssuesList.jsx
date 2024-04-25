@@ -4,7 +4,7 @@ import './IssuesList.css'
 import Filtro from '../utils/Filtro/Filtro.jsx' // Asegúrate de que la ruta sea correcta
 
 const IssuesList = ({ issues }) => {
-    const [filtro, setFiltro] = useState("todas");
+    const [filtro, setFiltro] = useState("libres");
 
     const filtrarIssues = (tipoFiltro) => {
         setFiltro(tipoFiltro);

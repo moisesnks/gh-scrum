@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Filtro.css"; // Asegúrate de tener un archivo CSS para los estilos del filtro
 
 const Filtro = ({ onFiltrar }) => {
-    const [filtroSeleccionado, setFiltroSeleccionado] = useState("todas");
+    const [filtroSeleccionado, setFiltroSeleccionado] = useState("libres");
 
     const handleClick = (filtro) => {
         setFiltroSeleccionado(filtro);
