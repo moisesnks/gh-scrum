@@ -1,39 +1,33 @@
-import React, { lazy } from 'react';
-import { useAvatarScores, AvatarList } from './Avatars';
-import { ListTasks } from './Tasks';
+// src/App.jsx
+
+
 import './App.css';
+import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
+import { AuthLayout } from "./AuthLayout";
+import { ProtectedLayout } from "./ProtectedLayout";
 
-import initialAvatars from './Avatars/avatars_mockup';
-import tasks from './Tasks/tasks_mockup';
-
-import Footer from './Footer';
-
-const App = () => {
-  const { avatars, updateAvatarScore } = useAvatarScores(initialAvatars);
+import LoginPage from "./Views/Login";
+import HomePage from "./Views/Home";
+import ErrorPage from "./Views/Error";
 
 
-  return (
-    <div className="container">
-      <div className="header">
-        <h1>Lumo Scrum</h1>
-      </div>
-      <div className="flex-container">
-        <div className="flex-item">
-          <div className="section">
-            <h2 className="section-header">Avatars</h2>
-            <AvatarList avatars={avatars} />
-          </div>
-        </div>
-        <div className="flex-item">
-          <div className="section">
-            <h2 className="section-header">Tasks</h2>
-            <ListTasks tasks={tasks} avatars={avatars} updateAvatarScore={updateAvatarScore} />
-          </div>
-        </div>
-      </div>
-      <Footer />
-    </div>
-  );
-};
 
-export default App;
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route
+        element={<AuthLayout />}
+        errorElement={<ErrorPage />}
+      >
+        <Route path="/">
+          <Route index element={<LoginPage />} />
+          <Route path="home" element={<ProtectedLayout />}>
+            <Route index element={<HomePage />} />
+          </Route>
+        </Route>
+      </Route >
+    </>
+  )
+);
+
+export default router;

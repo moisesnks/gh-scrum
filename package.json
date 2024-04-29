@@ -1,5 +1,4 @@
 {
-  "homepage": "https://moisesnks.github.io/gh-scrum/",
   "name": "ghubscrum",
   "private": true,
   "version": "0.0.0",
@@ -13,8 +12,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "firebase": "^10.11.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.23.0",
+    "theme-ui": "^0.16.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

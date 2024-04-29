@@ -96,6 +96,8 @@ const ListTasks = ({ tasks, avatars, updateAvatarScore }) => {
                         searchTerm={searchTerm}
                     />
                 ))}
+                <div className="blank">
+                </div>
             </div>
         </>
     );
