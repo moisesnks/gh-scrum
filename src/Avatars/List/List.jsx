@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "../Avatar/Avatar";
-import "./List.css"; // Importar el archivo CSS
+import "./List.css";
 
 const List = ({ avatars }) => {
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const filteredAvatars = avatars.filter((avatar) =>
+        avatar.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div className="list-avatar-container">
-            {avatars.map((avatar) => (
+            <input
+                type="text"
+                placeholder="Buscar por nombre..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className="search-input"
+            />
+            {filteredAvatars.map((avatar) => (
                 <Avatar key={avatar.id} {...avatar} />
             ))}
         </div>

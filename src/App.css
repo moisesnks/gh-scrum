@@ -8,9 +8,7 @@ body {
 }
 
 .container {
-    max-width: 1800px;
     margin: 0 auto;
-    padding: 20px;
 }
 
 .header {
@@ -26,6 +24,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    height: 100%;
 }
 
 .section-header {
@@ -43,7 +42,7 @@ body {
     flex: 1;
     margin-right: 20px;
     max-height: 80vh;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 
 @media (max-width: 768px) {

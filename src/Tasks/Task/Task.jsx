@@ -17,6 +17,7 @@ const Task = ({ task, avatars, handleDrop, handleRemoveAvatar }) => {
     return (
         <div className="task-container">
             <div className='main-title'>
+                <h3> #{task.issue_number} </h3>
                 <div className=" main-icon">
                     <MainIcon isBusy={isBusy} />
                 </div>

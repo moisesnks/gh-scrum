@@ -8,8 +8,6 @@ const issues =
             "opened_date": "Apr 24, 2024",
             "num_tasks": "2",
             "project_info": {
-                "Priority": "25",
-                "Size": "25",
             },
             assignedTo: [
                 { "name": "moisesnks", "icon": "https://firebasestorage.googleapis.com/v0/b/lumo-ghub.appspot.com/o/public%2Fmoisesnks.png?alt=media" },
@@ -28,8 +26,6 @@ const issues =
             "opened_date": "Apr 24, 2024",
             "num_tasks": "2",
             "project_info": {
-                "Priority": "25",
-                "Size": "25",
             }
         },
         {
@@ -40,8 +36,6 @@ const issues =
             "opened_date": "Apr 24, 2024",
             "num_tasks": "2",
             "project_info": {
-                "Priority": "25",
-                "Size": "25",
             }
         },
         {
@@ -52,8 +46,6 @@ const issues =
             "opened_date": "Apr 24, 2024",
             "num_tasks": "1",
             "project_info": {
-                "Priority": "25",
-                "Size": "25",
             },
             assignedTo: [
                 { "name": "moisesnks", "icon": "https://firebasestorage.googleapis.com/v0/b/lumo-ghub.appspot.com/o/public%2Fmoisesnks.png?alt=media" },
@@ -72,8 +64,6 @@ const issues =
             "opened_date": "Apr 24, 2024",
             "num_tasks": "4",
             "project_info": {
-                "Priority": "25",
-                "Size": "25",
             }
         },
         {
@@ -84,8 +74,6 @@ const issues =
             "opened_date": "Apr 24, 2024",
             "num_tasks": "4",
             "project_info": {
-                "Priority": "25",
-                "Size": "25",
             },
             assignedTo: [
                 { "name": "moisesnks", "icon": "https://firebasestorage.googleapis.com/v0/b/lumo-ghub.appspot.com/o/public%2Fmoisesnks.png?alt=media" },
@@ -104,8 +92,6 @@ const issues =
             "opened_date": "Apr 23, 2024",
             "num_tasks": "1",
             "project_info": {
-                "Priority": "25",
-                "Size": "25",
             }
         },
         {
@@ -116,8 +102,6 @@ const issues =
             "opened_date": "Apr 23, 2024",
             "num_tasks": "3",
             "project_info": {
-                "Priority": "25",
-                "Size": "25",
             }
         },
         {
@@ -128,8 +112,6 @@ const issues =
             "opened_date": "Apr 23, 2024",
             "num_tasks": "4",
             "project_info": {
-                "Priority": "25",
-                "Size": "25",
             }
         },
         {
@@ -140,8 +122,6 @@ const issues =
             "opened_date": "Apr 23, 2024",
             "num_tasks": "3",
             "project_info": {
-                "Priority": "25",
-                "Size": "25",
             }
         },
         {
@@ -152,8 +132,6 @@ const issues =
             "opened_date": "Apr 23, 2024",
             "num_tasks": "5",
             "project_info": {
-                "Priority": "25",
-                "Size": "25",
             }
         },
         {
@@ -164,8 +142,6 @@ const issues =
             "opened_date": "Apr 23, 2024",
             "num_tasks": "5",
             "project_info": {
-                "Priority": "25",
-                "Size": "25",
             }
         },
         {
@@ -176,8 +152,6 @@ const issues =
             "opened_date": "Apr 23, 2024",
             "num_tasks": "2",
             "project_info": {
-                "Priority": "25",
-                "Size": "25",
             }
         },
         {
@@ -188,8 +162,6 @@ const issues =
             "opened_date": "Apr 23, 2024",
             "num_tasks": "3",
             "project_info": {
-                "Priority": "25",
-                "Size": "25",
             }
         },
         {
@@ -200,8 +172,6 @@ const issues =
             "opened_date": "Apr 23, 2024",
             "num_tasks": "5",
             "project_info": {
-                "Priority": "25",
-                "Size": "25",
             }
         },
         {
@@ -212,8 +182,6 @@ const issues =
             "opened_date": "Apr 23, 2024",
             "num_tasks": "1",
             "project_info": {
-                "Priority": "25",
-                "Size": "25",
             }
         }
     ]
@@ -245,9 +213,9 @@ issues.forEach(issue => {
     issue.assignedAvatars = [];
 });
 
-// Generar un id string con un index
-issues.forEach((issue, index) => {
-    issue.id = index.toString();
+// issuenumber será el id
+issues.forEach((issue) => {
+    issue.id = issue.issue
 });
 
 export default issues;

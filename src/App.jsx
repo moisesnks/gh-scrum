@@ -6,10 +6,9 @@ import './App.css';
 import initialAvatars from './Avatars/avatars_mockup';
 import tasks from './Tasks/tasks_mockup';
 
+import Footer from './Footer';
+
 const App = () => {
-
-
-
   const { avatars, updateAvatarScore } = useAvatarScores(initialAvatars);
 
 
@@ -32,6 +31,7 @@ const App = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

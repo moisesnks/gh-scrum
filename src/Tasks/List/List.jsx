@@ -4,9 +4,12 @@ import useTaskAssignments from '../TaskAssignments';
 import './List.css';
 
 import Filtro from '../../utils/Filtro/Filtro';
+import OrderBy from '../../utils/OrderBy/OrderBy';
+import { getFieldNumericValue } from '../../utils/OrderBy/taskUtils';
 
 const ListTasks = ({ tasks, avatars, updateAvatarScore }) => {
-    const [filtro, setFiltro] = useState("todas");
+    const [filtro, setFiltro] = useState('todas');
+    const [orderBy, setOrderBy] = useState({ field: 'priority', order: 'low to high' });
 
     const filtrar = (filtro) => {
         setFiltro(filtro);
@@ -43,27 +46,43 @@ const ListTasks = ({ tasks, avatars, updateAvatarScore }) => {
 
     // Aplicar el filtro directamente en el mapeo de las tareas
     const tasksToDisplay = updatedTasks.filter((task) => {
-        if (filtro === "ocupadas") {
+        if (filtro === 'ocupadas') {
             return task.isBusy;
-        } else if (filtro === "libres") {
+        } else if (filtro === 'libres') {
             return !task.isBusy;
         }
         return true; // "todas" o filtro no definido
     });
 
+    const orderByTasks = (tasks, field, order) => {
+        return tasks.slice().sort((a, b) => {
+            const aValue = getFieldNumericValue(a, field);
+            const bValue = getFieldNumericValue(b, field);
+
+            if (order === 'low to high') {
+                return aValue - bValue; // Orden ascendente
+            } else {
+                return bValue - aValue; // Orden descendente
+            }
+        });
+    };
+
     return (
-        <div className="task-list-container">
+        <>
             <Filtro onFiltrar={filtrar} />
-            {tasksToDisplay.map((task) => (
-                <Task
-                    key={task.id}
-                    task={task}
-                    avatars={avatars}
-                    handleDrop={handleDrop}
-                    handleRemoveAvatar={handleRemoveAvatar}
-                />
-            ))}
-        </div>
+            <OrderBy onOrderBy={(order) => setOrderBy(order)} />
+            <div className="task-list-container">
+                {orderByTasks(tasksToDisplay, orderBy.field, orderBy.order).map((task) => (
+                    <Task
+                        key={task.id}
+                        task={task}
+                        avatars={avatars}
+                        handleDrop={handleDrop}
+                        handleRemoveAvatar={handleRemoveAvatar}
+                    />
+                ))}
+            </div>
+        </>
     );
 };
 
