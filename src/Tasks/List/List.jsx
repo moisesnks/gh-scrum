@@ -5,6 +5,7 @@ import './List.css';
 
 import Filtro from '../../utils/Filtro/Filtro';
 import OrderBy from '../../utils/OrderBy/OrderBy';
+import Search from '../../utils/Search/Search';
 import { getFieldNumericValue } from '../../utils/OrderBy/taskUtils';
 
 const ListTasks = ({ tasks, avatars, updateAvatarScore }) => {
@@ -79,8 +80,11 @@ const ListTasks = ({ tasks, avatars, updateAvatarScore }) => {
 
     return (
         <>
-            <Filtro onFiltrar={filtrar} onSearchTermChange={handleSearchTermChange} />
-            <OrderBy onOrderBy={(order) => setOrderBy(order)} />
+            <Search onSearchChange={handleSearchTermChange} />
+            <div className="filters-container">
+                <Filtro onFiltrar={filtrar} onSearchTermChange={handleSearchTermChange} />
+                <OrderBy onOrderBy={(order) => setOrderBy(order)} />
+            </div>
             <div className="task-list-container">
                 {orderByTasks(tasksToDisplay, orderBy.field, orderBy.order).map((task) => (
                     <Task
