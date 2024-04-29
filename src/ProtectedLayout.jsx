@@ -1,5 +1,4 @@
-// ProtectedLayout.jsx
-import { Link, Navigate, useOutlet } from "react-router-dom";
+import { Link, Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "./Hooks/useAuth";
 
 export const ProtectedLayout = () => {
@@ -9,16 +8,15 @@ export const ProtectedLayout = () => {
         return <Navigate to="/" />;
     }
 
-    const outlet = useOutlet();
-
     return (
         <div>
             <nav>
                 <Link to="/home">Home</Link>
-                <Link to="/form">Crear Tarea</Link>
+                <Link to="/home/form">Crear Tarea</Link>
                 <button onClick={logout}>Cerrar Sesión</button>
             </nav>
-            {outlet}
+            <Outlet /> {/* Render child routes */}
         </div>
     )
 };
+

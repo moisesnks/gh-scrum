@@ -1,4 +1,3 @@
-// AuthLayout.jsx
 import { useLoaderData, useOutlet } from "react-router-dom";
 import { AuthProvider } from "./Hooks/useAuth";
 
