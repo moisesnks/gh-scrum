@@ -1,122 +1,56 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-
-/* Pantalla xs */
-@media (min-width: 475px) {
-  .container {
-    max-width: 475px;
-  }
-
-}
-
-/* Pantalla sm */
-@media (min-width: 640px) {
-  .container {
-    max-width: 640px;
-  }
-}
-
-/* Pantalla md */
-@media (min-width: 768px) {
-  .container {
-    max-width: 768px;
-  }
-}
-
-/* Pantalla lg */
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-  }
-}
-
-/* Pantalla xl */
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
-  }
-}
-
-/* Pantalla xxl */
-@media (min-width: 1536px) {
-  .container {
-    max-width: 1536px;
-  }
-}
+/* Estilos generales para la aplicación */
 
 body {
-  font-family: "Roboto", sans-serif;
-  background-color: #303a50;
-  color: white;
-  margin: 0;
-  padding: 1rem;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background-color: #1a2238;
-  border-radius: 0.5rem;
+.container {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-.App {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
 }
 
-.half-side {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 50vw;
-  height: 90vh;
-  overflow: hidden;
+.section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
-.d-flex {
-  display: flex;
-  align-items: start;
+.section-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-.justify-center {
-  justify-content: center;
+.flex-container {
+    display: flex;
+    justify-content: space-between;
 }
 
-.align-center {
-  align-items: center;
+.flex-item {
+    flex: 1;
+    margin-right: 20px;
 }
 
-.text-center {
-  text-align: center;
-}
+@media (max-width: 768px) {
+    .flex-container {
+        flex-direction: column;
+    }
 
-.h-100 {
-  height: 100%;
-}
-
-.px-sm {
-  padding: 0 0.5rem;
-}
-
-.gap-sm {
-  gap: 0.5rem;
-}
-
-*::-webkit-scrollbar {
-  width: 4px;
-}
-
-*::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
-}
-
-.border {
-  border: 3px solid white;
+    .flex-item {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
 }

@@ -10,7 +10,6 @@ const issues =
             "project_info": {
                 "Priority": "25",
                 "Size": "25",
-                "Estimate": "25"
             },
             assignedTo: [
                 { "name": "moisesnks", "icon": "https://firebasestorage.googleapis.com/v0/b/lumo-ghub.appspot.com/o/public%2Fmoisesnks.png?alt=media" },
@@ -19,7 +18,7 @@ const issues =
                 { "name": "héctor salamanca" },
                 { "name": "lucas arancibia" },
             ],
-            isBusy: true,
+            isBusy: false,
         },
         {
             "title": " workflow",
@@ -31,7 +30,6 @@ const issues =
             "project_info": {
                 "Priority": "25",
                 "Size": "25",
-                "Estimate": "25"
             }
         },
         {
@@ -44,7 +42,6 @@ const issues =
             "project_info": {
                 "Priority": "25",
                 "Size": "25",
-                "Estimate": "25"
             }
         },
         {
@@ -57,7 +54,6 @@ const issues =
             "project_info": {
                 "Priority": "25",
                 "Size": "25",
-                "Estimate": "25"
             },
             assignedTo: [
                 { "name": "moisesnks", "icon": "https://firebasestorage.googleapis.com/v0/b/lumo-ghub.appspot.com/o/public%2Fmoisesnks.png?alt=media" },
@@ -66,7 +62,7 @@ const issues =
                 { "name": "héctor salamanca" },
                 { "name": "lucas arancibia" },
             ],
-            isBusy: true,
+            isBusy: false,
         },
         {
             "title": "Botón con el logo de la aplicación - vender",
@@ -78,7 +74,6 @@ const issues =
             "project_info": {
                 "Priority": "25",
                 "Size": "25",
-                "Estimate": "25"
             }
         },
         {
@@ -91,7 +86,6 @@ const issues =
             "project_info": {
                 "Priority": "25",
                 "Size": "25",
-                "Estimate": "25"
             },
             assignedTo: [
                 { "name": "moisesnks", "icon": "https://firebasestorage.googleapis.com/v0/b/lumo-ghub.appspot.com/o/public%2Fmoisesnks.png?alt=media" },
@@ -100,7 +94,7 @@ const issues =
                 { "name": "héctor salamanca" },
                 { "name": "lucas arancibia" },
             ],
-            isBusy: true,
+            isBusy: false,
         },
         {
             "title": "Corrección de olvidaste tu contraseña",
@@ -112,7 +106,6 @@ const issues =
             "project_info": {
                 "Priority": "25",
                 "Size": "25",
-                "Estimate": "25"
             }
         },
         {
@@ -125,7 +118,6 @@ const issues =
             "project_info": {
                 "Priority": "25",
                 "Size": "25",
-                "Estimate": "25"
             }
         },
         {
@@ -138,7 +130,6 @@ const issues =
             "project_info": {
                 "Priority": "25",
                 "Size": "25",
-                "Estimate": "25"
             }
         },
         {
@@ -151,7 +142,6 @@ const issues =
             "project_info": {
                 "Priority": "25",
                 "Size": "25",
-                "Estimate": "25"
             }
         },
         {
@@ -164,7 +154,6 @@ const issues =
             "project_info": {
                 "Priority": "25",
                 "Size": "25",
-                "Estimate": "25"
             }
         },
         {
@@ -177,7 +166,6 @@ const issues =
             "project_info": {
                 "Priority": "25",
                 "Size": "25",
-                "Estimate": "25"
             }
         },
         {
@@ -190,7 +178,6 @@ const issues =
             "project_info": {
                 "Priority": "25",
                 "Size": "25",
-                "Estimate": "25"
             }
         },
         {
@@ -203,7 +190,6 @@ const issues =
             "project_info": {
                 "Priority": "25",
                 "Size": "25",
-                "Estimate": "25"
             }
         },
         {
@@ -216,7 +202,6 @@ const issues =
             "project_info": {
                 "Priority": "25",
                 "Size": "25",
-                "Estimate": "25"
             }
         },
         {
@@ -229,7 +214,6 @@ const issues =
             "project_info": {
                 "Priority": "25",
                 "Size": "25",
-                "Estimate": "25"
             }
         }
     ]
@@ -241,7 +225,7 @@ const generateRandomEstimate = () => {
 
 // Loop through each issue and assign a random estimate
 issues.forEach(issue => {
-    issue.project_info.Estimate = generateRandomEstimate().toString();
+    issue.project_info.Estimate = generateRandomEstimate();
 });
 
 // Modificar priority para que tenga un valor random entre ["P0", "P1", "P2", "P3"]
@@ -254,6 +238,16 @@ issues.forEach(issue => {
 const sizes = ["S", "M", "L", "XL"];
 issues.forEach(issue => {
     issue.project_info.Size = sizes[Math.floor(Math.random() * sizes.length)];
+});
+
+// Añadir el campo assignedAvatars a cada issue
+issues.forEach(issue => {
+    issue.assignedAvatars = [];
+});
+
+// Generar un id string con un index
+issues.forEach((issue, index) => {
+    issue.id = index.toString();
 });
 
 export default issues;

@@ -1,0 +1,24 @@
+.compact-avatar-container {
+    display: flex;
+    align-items: center;
+}
+
+.compact-avatar-button {
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.compact-modal-container {
+    margin-top: 16px;
+}
+
+.compact-avatar-list-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.compact-delete-button {
+    margin-left: 8px;
+    cursor: pointer;
+}

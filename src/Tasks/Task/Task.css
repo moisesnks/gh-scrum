@@ -1,0 +1,82 @@
+/* Task.css */
+
+.task-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.task-container .main-title {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 1rem;
+}
+
+.task-container .main-title .tag {
+    color: rgb(16, 16, 16);
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 2px 5px;
+}
+
+
+.task-container .main-title .main-icon {
+    height: 100%;
+}
+
+
+.task-container .main-title .task-title {
+    height: 100%;
+    width: 200px;
+}
+
+.task-container .author {
+    margin-top: 20px;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: end;
+    width: 100%;
+}
+
+.task-container .project-info {
+    margin-top: 10px;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+}
+
+.task-container .project-info .num_tasks {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+
+}
+
+.task-container .main-title .subtitle {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: end;
+    width: 100%;
+}
+
+.task-description {
+    font-size: 14px;
+    color: #666666;
+    margin-bottom: 10px;
+}
+
+.drag-drop-area {
+    border: 1px dashed #ccc;
+    padding: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+}
