@@ -16,7 +16,7 @@ const App = () => {
   return (
     <div className="container">
       <div className="header">
-        <h1>Task Manager</h1>
+        <h1>Lumo Scrum</h1>
       </div>
       <div className="flex-container">
         <div className="flex-item">
