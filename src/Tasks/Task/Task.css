@@ -80,3 +80,10 @@
     margin-top: 10px;
     cursor: pointer;
 }
+
+.highlighted {
+    background-color: yellow;
+    color: black;
+    font-weight: bold;
+
+}

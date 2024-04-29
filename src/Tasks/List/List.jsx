@@ -10,9 +10,14 @@ import { getFieldNumericValue } from '../../utils/OrderBy/taskUtils';
 const ListTasks = ({ tasks, avatars, updateAvatarScore }) => {
     const [filtro, setFiltro] = useState('todas');
     const [orderBy, setOrderBy] = useState({ field: 'priority', order: 'low to high' });
+    const [searchTerm, setSearchTerm] = useState('');
 
     const filtrar = (filtro) => {
         setFiltro(filtro);
+    };
+
+    const handleSearchTermChange = (newTerm) => {
+        setSearchTerm(newTerm.toLowerCase());
     };
 
     const { updatedTasks, assignAvatarToTask, removeAvatarFromTask } = useTaskAssignments(tasks);
@@ -52,6 +57,11 @@ const ListTasks = ({ tasks, avatars, updateAvatarScore }) => {
             return !task.isBusy;
         }
         return true; // "todas" o filtro no definido
+    }).filter((task) => {
+        if ((searchTerm)) {
+            return task.title.toLowerCase().includes(searchTerm);
+        }
+        return true;
     });
 
     const orderByTasks = (tasks, field, order) => {
@@ -69,7 +79,7 @@ const ListTasks = ({ tasks, avatars, updateAvatarScore }) => {
 
     return (
         <>
-            <Filtro onFiltrar={filtrar} />
+            <Filtro onFiltrar={filtrar} onSearchTermChange={handleSearchTermChange} />
             <OrderBy onOrderBy={(order) => setOrderBy(order)} />
             <div className="task-list-container">
                 {orderByTasks(tasksToDisplay, orderBy.field, orderBy.order).map((task) => (
@@ -79,6 +89,7 @@ const ListTasks = ({ tasks, avatars, updateAvatarScore }) => {
                         avatars={avatars}
                         handleDrop={handleDrop}
                         handleRemoveAvatar={handleRemoveAvatar}
+                        searchTerm={searchTerm}
                     />
                 ))}
             </div>

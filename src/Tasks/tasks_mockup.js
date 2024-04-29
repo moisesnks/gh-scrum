@@ -215,7 +215,7 @@ issues.forEach(issue => {
 
 // issuenumber será el id
 issues.forEach((issue) => {
-    issue.id = issue.issue
+    issue.id = issue.issue_number;
 });
 
 export default issues;
