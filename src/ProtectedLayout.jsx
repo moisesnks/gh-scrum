@@ -1,5 +1,6 @@
 import { Link, Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "./Hooks/useAuth";
+import NavBar from "./NavBar";
 
 export const ProtectedLayout = () => {
     const { user, logout } = useAuth();
@@ -10,11 +11,7 @@ export const ProtectedLayout = () => {
 
     return (
         <div>
-            <nav>
-                <Link to="/home">Home</Link>
-                <Link to="/home/form">Crear Tarea</Link>
-                <button onClick={logout}>Cerrar Sesión</button>
-            </nav>
+            <NavBar onLogout={logout} />
             <Outlet /> {/* Render child routes */}
         </div>
     )

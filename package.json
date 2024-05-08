@@ -18,6 +18,7 @@
     "react-markdown": "^9.0.1",
     "react-router-dom": "^6.23.0",
     "remark-gfm": "^4.0.0",
+    "styled-components": "^6.1.10",
     "theme-ui": "^0.16.2"
   },
   "devDependencies": {

@@ -18,40 +18,94 @@ body {
     text-align: center;
 }
 
-.section {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    height: 100%;
+/* Estilos básicos para el Navbar */
+nav {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
 }
 
-.section-header {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.flex-container {
+.nav-container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
-.flex-item {
-    flex: 1;
+.routes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.routes a {
+    color: #fff;
+    text-decoration: none;
     margin-right: 20px;
-    max-height: 80vh;
-    overflow-y: hidden;
+    background-color: #444;
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
-@media (max-width: 768px) {
-    .flex-container {
-        flex-direction: column;
+.routes .links {
+    display: flex;
+
+}
+
+.mobile-menu {
+    display: none;
+}
+
+.logout-button {
+    display: block;
+    color: #fff;
+    background-color: #ff6347;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 32px;
+}
+
+/* Estilos para el menú desplegable en dispositivos móviles */
+@media (max-width: 425px) {
+    .routes {
+        display: none;
     }
 
-    .flex-item {
-        margin-right: 0;
-        margin-bottom: 20px;
+    .mobile-menu {
+        width: 100%;
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+
     }
+
+    .mobile-menu-dropdown {
+        display: block;
+        background-color: #444;
+        padding: 10px;
+    }
+
+    .mobile-menu-dropdown a {
+        display: block;
+        color: #fff;
+        text-decoration: none;
+        margin-bottom: 10px;
+    }
+
+
+
+    .menu-icon {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 2rem;
+        height: 40px;
+        width: 40px;
+    }
+}
+
+.border {
+    border: 1px solid blue;
 }

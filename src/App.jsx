@@ -20,7 +20,7 @@ const router = createBrowserRouter(
         <Route index element={<LoginPage />} />
         <Route path="/home" element={<ProtectedLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="form" element={<FormPage />} /> {/* Correct path to "form" */}
+          <Route path="form" element={<FormPage />} />
         </Route>
       </Route>
     </>
