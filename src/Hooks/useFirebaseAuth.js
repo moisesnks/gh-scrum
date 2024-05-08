@@ -9,7 +9,6 @@ const useFirebaseAuth = () => {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
-            console.log('User state changed:', user);
             setUser(user);
             setLoading(false);
         });

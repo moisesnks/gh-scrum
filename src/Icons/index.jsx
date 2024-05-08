@@ -1,5 +1,9 @@
-export function MainIcon({ isBusy }) {
-    const color = isBusy ? "#7C57AB" : "#57AB5A";
+export function TaskIcon({ isBusy, forceColor = "" }) {
+    let color = isBusy ? "#7C57AB" : "#57AB5A";
+    if (forceColor !== "") {
+        color = forceColor;
+    }
+
 
     return (
         <svg

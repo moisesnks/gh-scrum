@@ -25,6 +25,7 @@ interface Task {
 }
 
 class TaskModel implements Task {
+    id?: string;
     titulo: string;
     descripcion: string;
     autorReference: DocumentReference;
@@ -41,6 +42,7 @@ class TaskModel implements Task {
     responsables?: DocumentReference[];
 
     constructor(task: Task) {
+        this.id = task.id;
         this.titulo = task.titulo;
         this.descripcion = task.descripcion;
         this.autorName = task.autorName;

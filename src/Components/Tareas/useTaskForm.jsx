@@ -89,7 +89,6 @@ const useTaskForm = () => {
         const newTask = new TaskModel(formData);
         api.addTask(newTask.toFirestore());
     };
-
     return {
         formData,
         error,
