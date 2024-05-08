@@ -1,6 +1,9 @@
 /* Form.css */
-
-.task-container {
+/* modificar el tamaño de los contenedores de texto de manera
+ de que se vean bien hacia abajo al usar vista de escritorio.
+ La vista movil funciona bien, es la vista de escritorio que no
+ funciona adecuadamente. */
+.task-container { 
     background-color: rgba(135, 207, 235, 0.3);
     padding: 1rem;
     border-radius: 1rem;
@@ -9,6 +12,7 @@
     flex-direction: column;
     margin-bottom: 10vh;
     height: 100%;
+    overflow-y: scroll;
 }
 
 .task-container label {
