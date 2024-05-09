@@ -7,6 +7,8 @@ import LoginPage from "./Views/Login";
 import HomePage from "./Views/Home";
 import ErrorPage from "./Views/Error";
 import FormPage from "./Views/Form";
+import UsersPage from "./Views/Users";
+import TaskPage from "./Views/Task";
 
 
 
@@ -20,7 +22,9 @@ const router = createBrowserRouter(
         <Route index element={<LoginPage />} />
         <Route path="/home" element={<ProtectedLayout />}>
           <Route index element={<HomePage />} />
+          <Route path="task/:id" element={<TaskPage />} />
           <Route path="form" element={<FormPage />} />
+          <Route path="users" element={<UsersPage />} />
         </Route>
       </Route>
     </>

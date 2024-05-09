@@ -1,14 +1,15 @@
-export function TaskIcon({ isBusy, forceColor = "" }) {
+export function TaskIcon({ isBusy, forceColor = "", size = 30 }) {
     let color = isBusy ? "#7C57AB" : "#57AB5A";
     if (forceColor !== "") {
         color = forceColor;
     }
 
 
+
     return (
         <svg
-            width="30"
-            height="30"
+            width={size}
+            height={size}
             viewBox="0 0 31 30"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

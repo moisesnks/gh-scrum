@@ -8,8 +8,8 @@ const rootElement = document.getElementById('root');
 
 const theme = {
   colors: {
-    text: '#000',
-    background: '#fff',
+    text: '#777',
+    background: '#22272e',
     primary: '#33e',
   },
 };

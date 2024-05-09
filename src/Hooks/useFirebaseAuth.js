@@ -21,7 +21,6 @@ const useFirebaseAuth = () => {
         try {
             setLoading(true);
             setError(null);
-            console.log('Signing in with email and password...');
             await signInWithEmail(auth, email, password);
             console.log('Sign in successful');
         } catch (error) {
@@ -38,7 +37,6 @@ const useFirebaseAuth = () => {
             setError(null);
             console.log('Signing out...');
             await signOutAuth(auth);
-            console.log('Sign out successful');
         } catch (error) {
             setError(error.message);
             console.error('Sign out error:', error);

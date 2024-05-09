@@ -1,42 +1,37 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BarsIcon, GithubIcon } from './Icons';
+import { BarsIcon } from './Icons';
+import './NavBar.css';
 
-const NavBar = ({ onLogout }) => {
+const NavBar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
-    const closeMobileMenu = () => {
-        setIsMobileMenuOpen(false);
-    };
+    const links = [
+        { to: '/home', label: 'Home' },
+        { to: '/home/form', label: 'Crear Tarea' },
+        { to: '/home/kanban', label: 'Kanban' },
+        { to: '/home/metrics', label: 'Métricas' },
+        { to: '/home/teams', label: 'Equipos' },
+        { to: '/home/users', label: 'Usuarios' },
+        { to: '/home/profile', label: 'Perfil' },
+        { to: '/home/about', label: 'Acerca de' },
+    ];
 
     return (
-        <nav>
-            <div className="nav-container">
-                <div className="routes">
-                    <div className="links">
-                        <Link to="/home" onClick={closeMobileMenu}>Home</Link>
-                        <Link to="/home/form" onClick={closeMobileMenu}>Crear Tarea</Link>
-                    </div>
-                    {onLogout && <button className="logout-button" onClick={onLogout}>Cerrar Sesión</button>}
-                </div>
-                <div className="mobile-menu">
-                    <button className="menu-icon" onClick={toggleMobileMenu}>
-                        <BarsIcon />
-                    </button>
-                    {onLogout && <button className="logout-button" onClick={onLogout}>Cerrar Sesión</button>}
-                </div>
+        <div className={`topnav ${isMobileMenuOpen ? 'responsive' : ''}`}>
+            {links.map(({ to, label }) => (
+                <Link key={to} to={to} className="nav-link">
+                    {label}
+                </Link>
+            ))}
+            <div className="icon" onClick={toggleMobileMenu}>
+                <BarsIcon />
             </div>
-            {isMobileMenuOpen && (
-                <div className="mobile-menu-dropdown">
-                    <Link to="/home" onClick={closeMobileMenu}>Home</Link>
-                    <Link to="/home/form" onClick={closeMobileMenu}>Crear Tarea</Link>
-                </div>
-            )}
-        </nav>
+        </div>
     );
 }
 

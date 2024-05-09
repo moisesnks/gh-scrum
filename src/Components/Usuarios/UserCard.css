@@ -1,0 +1,34 @@
+/* UserCard.css */
+
+.user-card {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+}
+
+.user-avatar {
+    flex: 0 0 auto;
+    margin-right: 16px;
+}
+
+.avatar-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.user-details {
+    flex: 1 1 auto;
+}
+
+.user-name {
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+}
+
+.user-info {
+    margin-bottom: 4px;
+    font-size: 1rem;
+}

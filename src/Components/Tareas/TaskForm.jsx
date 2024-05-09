@@ -1,71 +1,14 @@
+// TaskForm.jsx
+
 import React from 'react';
 import useTaskForm from './useTaskForm';
-import styled from 'styled-components';
-
-// Estilos para el contenedor principal
-const Container = styled.div`
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-    h2 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    form {
-        display: flex;
-        flex-direction: column;
-    }
-
-    label {
-        margin-bottom: 10px;
-    }
-
-    input,
-    textarea,
-    select {
-        width: 100%;
-        padding: 10px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-top: 5px;
-    }
-
-    button {
-        padding: 10px 15px;
-        font-size: 16px;
-        cursor: pointer;
-        border: none;
-        border-radius: 4px;
-        margin-top: 10px;
-        background-color: #007bff;
-        color: white;
-    }
-
-    button[type='submit'] {
-        background-color: #28a745;
-    }
-
-    button[type='button'] {
-        background-color: #dc3545;
-    }
-
-    .error-message {
-        color: red;
-        margin-top: 10px;
-    }
-`;
+import './TaskForm.css'; // Importa el archivo CSS con las clases
 
 const TaskForm = () => {
     const { error, formData, handleInputChange, handleAddSubtask, handleDeleteSubtask, handleSubmit, handleSubtaskChange } = useTaskForm();
 
     return (
-        <Container>
+        <div className="container-task-form">
             <h2>Crear tarea</h2>
             {error && <p className="error-message">{error}</p>}
             <form onSubmit={handleSubmit}>
@@ -129,7 +72,7 @@ const TaskForm = () => {
 
                 <button type="submit">Crear Tarea</button>
             </form>
-        </Container>
+        </div>
     );
 };
 
