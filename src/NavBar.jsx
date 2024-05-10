@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BarsIcon } from './Icons';
 import './NavBar.css';
+import { useAuth } from './Hooks/useAuth';
 
 const NavBar = () => {
+    const { logout } = useAuth();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const toggleMobileMenu = () => {
@@ -23,14 +25,18 @@ const NavBar = () => {
 
     return (
         <div className={`topnav ${isMobileMenuOpen ? 'responsive' : ''}`}>
+            <div className="icon" onClick={toggleMobileMenu}>
+                <BarsIcon />
+            </div>
             {links.map(({ to, label }) => (
                 <Link key={to} to={to} className="nav-link">
                     {label}
                 </Link>
             ))}
-            <div className="icon" onClick={toggleMobileMenu}>
-                <BarsIcon />
-            </div>
+            <button className="logout-button" onClick={logout}>
+                Salir
+            </button>
+
         </div>
     );
 }
