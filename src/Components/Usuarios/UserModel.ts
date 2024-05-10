@@ -11,6 +11,7 @@ interface User {
     horas?: number;
     tareas?: string[];
     tareasReference?: DocumentReference[];
+    team?: string;
 }
 
 class UserModel implements User {
@@ -24,6 +25,7 @@ class UserModel implements User {
     horas: number;
     tareas: string[];
     tareasReference: DocumentReference[];
+    team: string;
 
     constructor(user: User) {
         this.id = user.id;
@@ -36,6 +38,7 @@ class UserModel implements User {
         this.horas = user.horas || 0;
         this.tareas = user.tareas || [];
         this.tareasReference = user.tareasReference || [];
+        this.team = user.team || '';
     }
 
     static fromFirestore(document: DocumentSnapshot): UserModel {
@@ -54,7 +57,8 @@ class UserModel implements User {
             cargo: this.cargo,
             horas: this.horas,
             tareas: this.tareas,
-            tareasReference: this.tareasReference.map(ref => ref.path)
+            tareasReference: this.tareasReference.map(ref => ref.path),
+            team: this.team,
         };
     }
 }

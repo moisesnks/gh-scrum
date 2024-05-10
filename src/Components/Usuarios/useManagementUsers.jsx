@@ -2,16 +2,34 @@ import { useState } from 'react';
 import useUserApi from './api';
 
 const useManagementUsers = () => {
-    const { error: apiError, addUser: apiAddUser, getUsers: apiGetUsers, updateUser: apiUpdateUser, getUser: apiGetUser, loading } = useUserApi();
+    const { error: apiError, addUser: apiAddUser, getUsers: apiGetUsers, updateUser: apiUpdateUser, getUser: apiGetUser, loading, deleteUserById } = useUserApi();
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(null);
 
-    const addUser = async ({ displayName, email, rut, photoURL = generatePhotoURL(displayName) }) => {
+    const deleteUser = async (userId) => {
+        try {
+            const isSuccess = await deleteUserById(userId);
+            if (isSuccess) {
+                await refreshUsers();
+                return true;
+            } else {
+                setError('Error al eliminar usuario');
+                return false;
+            }
+        } catch (error) {
+            console.error('Error deleting user: ', error);
+            setError('Ocurrió un error al eliminar el usuario');
+            return false;
+        }
+    };
+
+    const addUser = async (userData) => {
+        const { displayName, email, rut } = userData;
+        const photoURL = generatePhotoURL(displayName);
         try {
             const newUser = { displayName, email, rut, photoURL };
             const isSuccess = await apiAddUser(newUser);
             if (isSuccess) {
-                await refreshUsers();
                 return true;
             } else {
                 setError('Error al agregar usuario');
@@ -52,6 +70,7 @@ const useManagementUsers = () => {
                 await refreshUsers();
                 return true;
             } else {
+                console.error('Error updating user');
                 setError('Error al actualizar usuario');
                 return false;
             }
@@ -77,7 +96,7 @@ const useManagementUsers = () => {
         await getUsers();
     };
 
-    return { users, error, addUser, getUsers, updateUser, getUser, loading };
+    return { users, error, addUser, getUsers, updateUser, getUser, loading, deleteUser };
 };
 
 export default useManagementUsers;

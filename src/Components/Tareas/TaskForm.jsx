@@ -4,8 +4,26 @@ import React from 'react';
 import useTaskForm from './useTaskForm';
 import './TaskForm.css'; // Importa el archivo CSS con las clases
 
+export const options = [
+    { value: 'front', label: 'Frontend' },
+    { value: 'back', label: 'Backend' },
+    { value: 'qa', label: 'QA' },
+    { value: 'devops', label: 'DevOps' },
+    { value: 'infra', label: 'Infraestructura' },
+    { value: 'design', label: 'Diseño' },
+    { value: 'sec', label: 'Seguridad' },
+    { value: 'pm', label: 'Project Manager' },
+    { value: 'scrum', label: 'Scrum Master' },
+    { value: 'seclead', label: 'Líder de Seguridad' },
+    { value: 'tl', label: 'Líder Técnico' },
+    { value: 'infralead', label: 'Líder de Infraestructura' },
+    { value: 'other', label: 'Otro' },
+];
+
 const TaskForm = () => {
     const { error, formData, handleInputChange, handleAddSubtask, handleDeleteSubtask, handleSubmit, handleSubtaskChange } = useTaskForm();
+
+
 
     return (
         <div className="container-task-form">
@@ -35,15 +53,11 @@ const TaskForm = () => {
                 <label>
                     Cargo:
                     <select name="cargo" value={formData.cargo} onChange={handleInputChange}>
-                        <option value="front">Frontend</option>
-                        <option value="back">Backend</option>
-                        <option value="qa">QA</option>
-                        <option value="devops">DevOps</option>
-                        <option value="infra">Infraestructura</option>
-                        <option value="design">Diseño</option>
-                        <option value="sec">Seguridad</option>
-                        <option value="pm">Project Manager</option>
-                        <option value="other">Otro</option>
+                        {options.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
+                        ))}
                     </select>
                 </label>
                 <label>

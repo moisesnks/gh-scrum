@@ -11,7 +11,8 @@ const AddUserModal = ({ addUser }) => {
         setVisible(true);
     };
 
-    const handleOk = async () => {
+    const handleOk = async (e) => {
+        e.preventDefault(); // Prevenir la recarga de la página
         const userData = { displayName, email, rut };
         const success = await addUser(userData);
         if (success) {
