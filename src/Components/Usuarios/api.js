@@ -1,9 +1,8 @@
 // path: src/Components/Usuarios/api.js
 
 import { db, auth } from '../../firebaseConfig';
-import { isEqual } from 'lodash';
-import { collection, getDocs, addDoc, getDoc, doc, updateDoc, setDoc } from 'firebase/firestore';
-import { createUserWithEmailAndPassword, deleteUser } from 'firebase/auth';
+import { collection, getDocs, getDoc, doc, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import UserModel from './UserModel';
 
@@ -22,34 +21,16 @@ const useUserApi = () => {
     };
 
     const deleteUserById = async (userId) => {
-        // Borra el auth user y el firestore user
-        // debe usar deleteUser de auth y deleteDoc de firestore
         try {
             setLoading(true);
             const userRef = doc(db, 'users', userId);
             await deleteDoc(userRef);
-            const user = await getDoc(userRef);
-            if (user.exists()) {
-                setLoading(false);
-                setError('Error al borrar el usuario');
-                return false;
-            }
-
-            const userAuth = auth.currentUser;
-            try {
-                await deleteUser(userAuth);
-                setLoading(false);
-                return true;
-            }
-            catch (error) {
-                setLoading(false);
-                setError('Error al borrar el usuario de autenticación');
-                return false;
-            }
+            setLoading(false);
+            return true;
         } catch (error) {
             setLoading(false);
             console.error('Error deleting user: ', error);
-            setError('Ocurrió un error al borrar el usuario');
+            setError('Ocurrió un error al eliminar el usuario');
             return false;
         }
     };
@@ -137,19 +118,9 @@ const useUserApi = () => {
             // Actualizar el documento del usuario con los nuevos datos
             await updateDoc(userRef, formData);
 
-            // Obtener el documento actualizado del usuario
-            const updatedUserDoc = await getDoc(userRef);
-            const updatedData = updatedUserDoc.data();
-
-            // Verificar si los datos actualizados son iguales a los datos enviados en formData
-            if (isEqual(updatedData, formData)) {
-                setLoading(false);
-                return true;
-            } else {
-                setLoading(false);
-                setError('Error: No se pudo actualizar el usuario');
-                return false;
-            }
+            // Si no se lanzó una excepción, considerar la actualización como exitosa
+            setLoading(false);
+            return true;
         } catch (error) {
             setLoading(false);
             console.error('Error updating user: ', error);
@@ -157,6 +128,7 @@ const useUserApi = () => {
             return false;
         }
     };
+
 
     const getUser = async (userId) => {
         try {

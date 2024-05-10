@@ -3,27 +3,10 @@
 import React from 'react';
 import useTaskForm from './useTaskForm';
 import './TaskForm.css'; // Importa el archivo CSS con las clases
-
-export const options = [
-    { value: 'front', label: 'Frontend' },
-    { value: 'back', label: 'Backend' },
-    { value: 'qa', label: 'QA' },
-    { value: 'devops', label: 'DevOps' },
-    { value: 'infra', label: 'Infraestructura' },
-    { value: 'design', label: 'Diseño' },
-    { value: 'sec', label: 'Seguridad' },
-    { value: 'pm', label: 'Project Manager' },
-    { value: 'scrum', label: 'Scrum Master' },
-    { value: 'seclead', label: 'Líder de Seguridad' },
-    { value: 'tl', label: 'Líder Técnico' },
-    { value: 'infralead', label: 'Líder de Infraestructura' },
-    { value: 'other', label: 'Otro' },
-];
+import { options } from '../FormField'
 
 const TaskForm = () => {
     const { error, formData, handleInputChange, handleAddSubtask, handleDeleteSubtask, handleSubmit, handleSubtaskChange } = useTaskForm();
-
-
 
     return (
         <div className="container-task-form">

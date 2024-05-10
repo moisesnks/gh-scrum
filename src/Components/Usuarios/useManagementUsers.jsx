@@ -24,12 +24,13 @@ const useManagementUsers = () => {
     };
 
     const addUser = async (userData) => {
-        const { displayName, email, rut } = userData;
+        const { displayName, email, rut, cargo, rol, horas, team } = userData;
         const photoURL = generatePhotoURL(displayName);
         try {
-            const newUser = { displayName, email, rut, photoURL };
+            const newUser = { displayName, email, rut, photoURL, cargo, rol, horas, team };
             const isSuccess = await apiAddUser(newUser);
             if (isSuccess) {
+                await refreshUsers();
                 return true;
             } else {
                 setError('Error al agregar usuario');
@@ -70,7 +71,7 @@ const useManagementUsers = () => {
                 await refreshUsers();
                 return true;
             } else {
-                console.error('Error updating user');
+                console.error('Error updating user', apiError);
                 setError('Error al actualizar usuario');
                 return false;
             }

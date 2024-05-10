@@ -2,23 +2,22 @@
 
 .user-card {
     display: flex;
+    flex-direction: row;
     padding: 16px;
     margin-bottom: 16px;
     border-radius: 8px;
     background-color: #2d333b;
     border: 1px solid #444c56;
+    position: relative;
+    z-index: 1;
 }
 
 .user-avatar {
     height: 100%;
     display: flex;
-    flex-direction: column;
-}
-
-.user-avatar {
-    display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
+    gap: 8px;
     align-items: center;
     margin-right: 16px;
 }
@@ -31,6 +30,7 @@
 
 .user-details {
     display: flex;
+    align-items: center;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -45,6 +45,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    height: 3em;
 }
 
 .user-details button:hover {
@@ -52,8 +53,46 @@
 }
 
 .edit-actions {
-    margin-top: 16px;
     display: flex;
     flex-direction: row;
     gap: 16px;
+    align-items: end
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+@media screen and (max-width: 600px) {
+    .user-card {
+        flex-direction: column;
+    }
+
+    .checkbox-input {
+        position: absolute;
+        left: 0;
+        margin: 16px;
+    }
+
+    .edit-btn {
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin: 16px;
+    }
+
+    .hr {
+        border: 1px solid #444c56;
+        width: 100%;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        margin-top: 16px;
+        margin-bottom: 8px;
+    }
 }

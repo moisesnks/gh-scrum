@@ -61,6 +61,18 @@ const ManagementUsers = () => {
         }
     };
 
+    if (loading) {
+        return <Spinner text="Cargando usuarios..." />
+    }
+
+    if (error) {
+        return (
+            <div className="error-message">
+                {error}
+            </div>
+        )
+    }
+
     return (
         <div className="management-users-container">
             <div className="management-buttons">
@@ -94,11 +106,6 @@ const ManagementUsers = () => {
                     />
                 ))}
             </div>
-
-
-
-            {loading && <Spinner text="Cargando usuarios..." />}
-            {error && <div className="error-message">{error}</div>}
         </div>
     );
 };

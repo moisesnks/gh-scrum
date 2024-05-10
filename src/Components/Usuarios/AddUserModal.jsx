@@ -1,11 +1,25 @@
 import React, { useState } from 'react';
 import './AddUserModal.css';
 
+import {
+    FormName,
+    FormRut,
+    FormEmail,
+    FormRol,
+    FormCargo,
+    FormHoras,
+    FormTeam,
+} from '../FormField';
+
 const AddUserModal = ({ addUser }) => {
     const [visible, setVisible] = useState(false);
     const [displayName, setDisplayName] = useState('');
     const [email, setEmail] = useState('');
     const [rut, setRut] = useState('');
+    const [rol, setRol] = useState('');
+    const [cargo, setCargo] = useState('');
+    const [horas, setHoras] = useState('');
+    const [team, setTeam] = useState('');
 
     const showModal = () => {
         setVisible(true);
@@ -13,13 +27,17 @@ const AddUserModal = ({ addUser }) => {
 
     const handleOk = async (e) => {
         e.preventDefault(); // Prevenir la recarga de la página
-        const userData = { displayName, email, rut };
+        const userData = { displayName, email, rut, rol, cargo, horas, team };
         const success = await addUser(userData);
         if (success) {
             setVisible(false);
             setDisplayName('');
             setEmail('');
             setRut('');
+            setRol('');
+            setCargo('');
+            setHoras('');
+            setTeam('');
         }
     };
 
@@ -29,6 +47,7 @@ const AddUserModal = ({ addUser }) => {
         setEmail('');
         setRut('');
     };
+
 
     return (
         <div>
@@ -41,29 +60,19 @@ const AddUserModal = ({ addUser }) => {
                         <h2>Añadir Persona</h2>
                         <form onSubmit={handleOk}>
                             <label htmlFor="displayName">Nombre:</label>
-                            <input
-                                type="text"
-                                id="displayName"
-                                value={displayName}
-                                onChange={(e) => setDisplayName(e.target.value)}
-                                required
-                            />
+                            <FormName handleFieldChange={(e) => setDisplayName(e.target.value)} />
                             <label htmlFor="email">Correo Electrónico:</label>
-                            <input
-                                type="email"
-                                id="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                            />
+                            <FormEmail handleFieldChange={(e) => setEmail(e.target.value)} />
                             <label htmlFor="rut">RUT:</label>
-                            <input
-                                type="text"
-                                id="rut"
-                                value={rut}
-                                onChange={(e) => setRut(e.target.value)}
-                                required
-                            />
+                            <FormRut handleFieldChange={(e) => setRut(e.target.value)} />
+                            <label htmlFor="rol">Rol:</label>
+                            <FormRol handleFieldChange={(e) => setRol(e.target.value)} />
+                            <label htmlFor="cargo">Cargo:</label>
+                            <FormCargo handleFieldChange={(e) => setCargo(e.target.value)} />
+                            <label htmlFor="horas">Horas:</label>
+                            <FormHoras handleFieldChange={(e) => setHoras(e.target.value)} />
+                            <label htmlFor="team">Equipo:</label>
+                            <FormTeam handleFieldChange={(e) => setTeam(e.target.value)} />
                             <div className="button-container">
                                 <button type="submit" className="add-button">
                                     Agregar
