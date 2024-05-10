@@ -1,0 +1,47 @@
+.management-users-container {
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.error-message {
+    color: red;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+
+.user-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.management-buttons {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding: 8px 16px;
+    background-color: #2d333b;
+    border-radius: 8px;
+}
+
+.management-buttons button {
+    padding: 8px 16px;
+    background-color: #444c56;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.management-buttons button:disabled {
+    background-color: #333;
+    cursor: not-allowed;
+}
+
+.management-buttons button:hover {
+    background-color: #333;
+}

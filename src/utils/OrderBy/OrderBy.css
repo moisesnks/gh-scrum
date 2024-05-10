@@ -1,0 +1,28 @@
+.container-orderby {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn-orderby {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    padding: 8px 16px;
+    margin-right: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-orderby:hover {
+    background-color: #999;
+}
+
+.selected {
+    background-color: #333;
+    color: #fff;
+}
+
+.selected:hover {
+    background-color: #555;
+}
