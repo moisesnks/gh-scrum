@@ -5,7 +5,7 @@ import useFirebaseAuth from "./useFirebaseAuth";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const { user, loading, error, signInWithEmailAndPassword, signOut } = useFirebaseAuth();
+    const { user, loading, error, signInWithEmailAndPassword, signOut, createUser } = useFirebaseAuth();
     const navigate = useNavigate();
 
     const login = async (email, password) => {
@@ -18,7 +18,12 @@ export const AuthProvider = ({ children }) => {
         navigate('/', { replace: true });
     };
 
-    const value = useMemo(() => ({ user, loading, error, login, logout }), [user, loading, error]);
+    const registerUser = async (email, password) => {
+        await createUser(email, password);
+        navigate('/home');
+    };
+
+    const value = useMemo(() => ({ user, loading, error, login, logout, registerUser }), [user, loading, error, registerUser]);
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
