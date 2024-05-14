@@ -56,6 +56,35 @@ import "./Task.css"; // Importa el archivo CSS con las clases
 */
 
 
+const Responsible = ({ responsable }) => {
+    return (
+        <div className="responsible">
+            <img src={responsable.photoURL} alt={responsable.displayName} />
+            <span>{responsable.displayName}</span>
+        </div>
+    );
+};
+
+const Subtask = ({ subtask }) => {
+    return (
+        <div className="subtask">
+            <input type="checkbox" checked={subtask.completada} readOnly />
+            <label>{subtask.label}</label>
+        </div>
+    );
+};
+
+const AuthorInfo = ({ autorData }) => {
+    return (
+        <div className="author-info">
+            <img src={autorData.photoURL} alt={autorData.displayName} />
+            <span>{autorData.displayName}</span>
+            <span>{autorData.email}</span>
+        </div>
+    );
+};
+
+
 const Task = ({ task, isMarkable, handleTaskSelect, onClick }) => {
     const isBusy = task.status === "completed" ? true : false;
 
@@ -73,6 +102,13 @@ const Task = ({ task, isMarkable, handleTaskSelect, onClick }) => {
                 <div className="task-body">
                     <span onClick={onClick} className="h3">{task.titulo}</span>
                     <p>{task.descripcion}</p>
+                    <div className="task-footer">
+                        <div className="task-responsibles">
+                            {task.responsablesData.map((responsable) => (
+                                <Responsible key={responsable.id} responsable={responsable} />
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         </li>

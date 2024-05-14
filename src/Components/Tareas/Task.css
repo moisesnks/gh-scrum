@@ -35,3 +35,53 @@
     color: #fff;
     text-decoration: underline;
 }
+
+/* Estilos para el resto de componentes */
+.responsible {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.responsible img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.responsible span {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.subtask {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.subtask input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.subtask label {
+    font-size: 14px;
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.author-info img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.author-info span {
+    font-size: 16px;
+}
