@@ -23,6 +23,7 @@ const TaskList = () => {
         handleSelectAll,
         handleTaskSelect,
         handleChangeStatus,
+        handleDeleteTasks,
     } = useTaskList();
 
     const handleClick = (task) => {
@@ -58,6 +59,7 @@ const TaskList = () => {
                             <option value="pending">Pendientes</option>
                             <option value="completed">Completadas</option>
                         </select>
+                        <button onClick={handleDeleteTasks}>Eliminar</button>
                     </div>
                 ) : (
                     <>

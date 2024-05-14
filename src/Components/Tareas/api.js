@@ -1,116 +1,152 @@
 // path: src/Components/Tareas/api.js
-import { db } from '../../firebaseConfig';
-import { collection, getDocs, addDoc, getDoc, doc, updateDoc } from 'firebase/firestore';
 import { useState } from 'react';
-import TaskModel from './TaskModel';
+
+const apiUrl = 'https://backend-lumotareas.vercel.app/tasks';
 
 const useTaskApi = () => {
     const [error, setError] = useState(null);
 
     const addTask = async (task) => {
         try {
-            const docRef = await addDoc(collection(db, 'tasks'), task);
-            console.log('Document written with ID: ', docRef.id);
-        } catch (e) {
-            console.error('Error adding document: ', e);
-            setError('Ocurrió un error al crear la tarea');
+            const response = await fetch(apiUrl + '/new', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(task),
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al añadir la tarea');
+            }
+        } catch (error) {
+            setError(error.message);
         }
     };
 
     const getTasks = async () => {
         try {
-            const taskCollection = collection(db, 'tasks');
-            const querySnapshot = await getDocs(taskCollection);
-            const tasks = [];
+            const response = await fetch(apiUrl);
 
-            querySnapshot.forEach((doc) => {
-                const taskModel = TaskModel.fromFirestore(doc);
-                tasks.push(taskModel);
+            if (!response.ok) {
+                throw new Error('Error al obtener las tareas');
+            }
+
+            return await response.json();
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    const getTask = async (id) => {
+        try {
+            const response = await fetch(`${apiUrl}/${id}`);
+
+            if (!response.ok) {
+                throw new Error('Error al obtener la tarea');
+            }
+
+            return await response.json();
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    const updateTaskStatus = async (id, status) => {
+        try {
+            const response = await fetch(`${apiUrl}/${id}/update`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ status: status }),
             });
 
-            return tasks;
+            if (!response.ok) {
+                throw new Error('Error al actualizar el estado de la tarea');
+            }
         } catch (error) {
-            console.error('Error fetching tasks: ', error);
-            setError('Ocurrió un error al obtener las tareas');
-            return [];
+            setError(error.message);
         }
     };
 
-    const updateTaskStatus = async (taskId, status) => {
-        try {
-            const taskRef = doc(db, 'tasks', taskId);
-            const taskDoc = await getDoc(taskRef);
 
-            if (!taskDoc.exists()) {
-                setError('La tarea no existe');
-                return false; // Devolver false si la tarea no existe
+    const deleteTask = async (id) => {
+        try {
+            const response = await fetch(`${apiUrl}/${id}/delete`, {
+                method: 'DELETE',
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al eliminar la tarea');
             }
+        } catch (error) {
+            setError(error.message);
+        }
+    };
 
-            // Actualizar el estado de la tarea
-            await updateDoc(taskRef, { status });
+    const updateTask = async (id, task) => {
+        try {
+            const response = await fetch(`${apiUrl}/${id}/update`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(task),
+            });
 
-            // Verificar si la actualización se realizó correctamente
-            const updatedTaskDoc = await getDoc(taskRef);
-            const updatedStatus = updatedTaskDoc.data().status;
-
-            if (updatedStatus === status) {
-                return true; // Devolver true si el estado se actualizó correctamente
-            } else {
-                setError('Error: No se pudo actualizar el estado de la tarea');
-                return false; // Devolver false si no se pudo actualizar el estado
+            if (!response.ok) {
+                throw new Error('Error al actualizar la tarea');
             }
-        } catch (e) {
-            console.error('Error updating document: ', e);
-            setError('Ocurrió un error al actualizar el estado de la tarea');
-            return false; // Devolver false en caso de error
+        } catch (error) {
+            setError(error.message);
         }
     };
 
-    const getTask = async (taskId) => {
+    const asignarResponsables = async (id, responsables) => {
         try {
-            const taskRef = doc(db, 'tasks', taskId);
-            const taskDoc = await getDoc(taskRef);
+            const response = await fetch(`${apiUrl}/${id}/asignar`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ responsables }),
+            });
 
-            if (!taskDoc.exists()) {
-                setError('La tarea no existe');
-                return null; // Devolver null si la tarea no existe
+            if (!response.ok) {
+                throw new Error('Error al asignar responsables');
             }
-
-            const taskModel = TaskModel.fromFirestore(taskDoc);
-            return taskModel;
-        } catch (e) {
-            console.error('Error getting document: ', e);
-            setError('Ocurrió un error al obtener la tarea');
-            return null; // Devolver null en caso de error
+        } catch (error) {
+            setError(error.message);
         }
     };
 
-
-    const deleteTask = async (taskId) => {
+    const desasignarResponsables = async (id, responsables) => {
         try {
-            const taskRef = doc(db, 'tasks', taskId);
-            await updateDoc(taskRef, { deleted: true });
-        } catch (e) {
-            console.error('Error deleting document: ', e);
-            setError('Ocurrió un error al eliminar la tarea');
-        }
-    }
+            const response = await fetch(`${apiUrl}/${id}/desasignar`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ responsables }),
+            });
 
-    const updateTask = async (taskId, formData) => {
-        try {
-            const taskRef = doc(db, 'tasks', taskId);
-            await updateDoc(taskRef, formData);
-        } catch (e) {
-            console.error('Error updating document: ', e);
-            setError('Ocurrió un error al actualizar la tarea');
+            if (!response.ok) {
+                throw new Error('Error al desasignar responsables');
+            }
+        } catch (error) {
+            setError(error.message);
         }
     };
+
     return {
         error,
         addTask,
         getTasks,
         getTask,
         updateTaskStatus,
+        asignarResponsables,
+        desasignarResponsables,
         deleteTask,
         updateTask,
     };

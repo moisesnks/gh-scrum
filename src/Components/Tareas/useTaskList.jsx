@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Api from './api';
+import { forEach } from 'lodash';
 
 const useTaskList = () => {
     const api = Api();
@@ -13,6 +14,7 @@ const useTaskList = () => {
     useEffect(() => {
         const fetchTasks = async () => {
             try {
+                setLoading(true);
                 const tasks = await api.getTasks();
                 setTasks(tasks);
                 setFilteredTasks(tasks);
@@ -55,41 +57,40 @@ const useTaskList = () => {
     const selectedTasks = filteredTasks.filter((task) => task.selected);
 
     const handleChangeStatus = async (status) => {
-        const confirmChange = window.confirm('¿Estás seguro de querer cambiar el estado de las tareas seleccionadas?');
-
-        if (!confirmChange) {
-            return;
-        }
-
+        setLoading(true);
         try {
-            setLoading(true);
+            await Promise.all(selectedTasks.map((task) => api.updateTaskStatus(task.id, status)));
+            const updatedTasks = tasks.map((task) => {
+                if (selectedTasks.find((selected) => selected.id === task.id)) {
+                    return { ...task, status };
+                }
 
-            const updatePromises = selectedTasks.map(async (task) => {
-                return await api.updateTaskStatus(task.id, status);
+                return task;
             });
-
-            const responses = await Promise.all(updatePromises);
+            setTasks(updatedTasks);
+            setFilteredTasks(updatedTasks);
+            setLoading(false);
+        }
+        catch (error) {
+            setError(error);
             setLoading(false);
 
-            const allUpdatedSuccessfully = responses.every((response) => response === true);
-
-            if (allUpdatedSuccessfully) {
-                const updatedTasks = tasks.map((task) =>
-                    selectedTasks.some((selectedTask) => selectedTask.id === task.id)
-                        ? { ...task, status }
-                        : task
-                );
-
-                setTasks(updatedTasks);
-                setFilteredTasks(updatedTasks);
-                setSelectAll(false);
-            } else {
-                console.log('Alguna tarea no se pudo actualizar correctamente');
-            }
-        } catch (error) {
-            console.error('Error al actualizar el estado de las tareas:', error);
         }
-    };
+    }
+
+    const handleDeleteTasks = async () => {
+        setLoading(true);
+        try {
+            await Promise.all(selectedTasks.map((task) => api.deleteTask(task.id)));
+            const updatedTasks = tasks.filter((task) => !selectedTasks.find((selected) => selected.id === task.id));
+            setTasks(updatedTasks);
+            setFilteredTasks(updatedTasks);
+            setLoading(false);
+        } catch (error) {
+            setError(error);
+            setLoading(false);
+        }
+    }
 
     const numTasks = {
         pending: tasks.filter((task) => task.status === 'Pendiente').length,
@@ -110,6 +111,7 @@ const useTaskList = () => {
         handleSelectAll,
         handleTaskSelect,
         handleChangeStatus,
+        handleDeleteTasks,
     };
 };
 
