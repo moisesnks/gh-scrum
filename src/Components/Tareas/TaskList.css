@@ -7,7 +7,7 @@
     border: 1px solid #444c56;
 }
 
-.task-header {
+.container-task-list .task-header {
     display: flex;
     align-items: center;
     justify-content: start;
@@ -36,6 +36,19 @@
     padding: 0;
 }
 
+.notask-container p {
+    padding: 10px;
+    margin: 0;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+
+}
+
 .task-list-container li:hover {
     background-color: #2d333b;
+}
+
+.task-count.active {
+    color: #ccc;
 }

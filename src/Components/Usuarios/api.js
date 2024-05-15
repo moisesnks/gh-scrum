@@ -1,12 +1,9 @@
 // path: src/Components/Usuarios/api.js
 
-import { db, auth } from '../../firebaseConfig';
-import { collection, getDocs, getDoc, doc, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
-import UserModel from './UserModel';
-
+const apiUrl = 'https://backend-lumotareas.vercel.app/users';
 const useUserApi = () => {
+
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -20,137 +17,115 @@ const useUserApi = () => {
         return password;
     };
 
-    const deleteUserById = async (userId) => {
-        try {
-            setLoading(true);
-            const userRef = doc(db, 'users', userId);
-            await deleteDoc(userRef);
-            setLoading(false);
-            return true;
-        } catch (error) {
-            setLoading(false);
-            console.error('Error deleting user: ', error);
-            setError('Ocurrió un error al eliminar el usuario');
-            return false;
-        }
-    };
-
     const addUser = async (user) => {
-        const { email, rut } = user;
-
         try {
             setLoading(true);
 
-            // Generar una contraseña basada en el correo y el RUT
-            const password = generatePasswordFromEmailAndRut(email, rut);
-            console.log('Generated password:', password);
-
-            // Crear usuario en Firebase Authentication con la contraseña generada
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const userDoc = userCredential.user;
-
-            if (!userDoc) {
-                setLoading(false);
-                setError('Error al crear el usuario: No se pudo obtener el usuario creado');
-                console.error('Error: No se pudo obtener el usuario creado');
-                return false;
-            }
-
-            console.log('User created successfully:', userDoc);
-
-            // Crear documento en la colección 'users' con el UID como ID
-            const userCollection = collection(db, 'users');
-            const userRef = doc(userCollection, userDoc.uid); // Referenciar el documento con el UID
-
-            await setDoc(userRef, {
-                ...user,
-                uid: userDoc.uid // Incluir el UID como parte de los datos del documento
+            const password = generatePasswordFromEmailAndRut(user.email, user.rut);
+            const tareasReference = [];
+            const response = await fetch(apiUrl + '/new', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ...user, password, tareasReference }),
             });
 
-            console.log('User document created successfully:', user);
+            if (!response.ok) {
+                throw new Error('Error al añadir el usuario');
+            }
 
             setLoading(false);
-            return true;
-
         } catch (error) {
+            setError(error.message);
             setLoading(false);
-            console.error('Error adding user: ', error);
-            setError('Ocurrió un error al crear el usuario');
-            return false;
         }
-    };
-
+    }
 
     const getUsers = async () => {
         try {
             setLoading(true);
-            const userCollection = collection(db, 'users');
-            const querySnapshot = await getDocs(userCollection);
-            const users = [];
 
-            querySnapshot.forEach((doc) => {
-                const userModel = UserModel.fromFirestore(doc);
-                users.push(userModel);
-            });
+            const response = await fetch(apiUrl);
+
+            if (!response.ok) {
+                throw new Error('Error al obtener los usuarios');
+            }
+
+            const users = await response.json();
 
             setLoading(false);
+
             return users;
         } catch (error) {
+            setError(error.message);
             setLoading(false);
-            console.error('Error fetching users: ', error);
-            setError('Ocurrió un error al obtener los usuarios');
-            return [];
         }
     };
 
-    const updateUser = async (userId, formData) => {
-        setLoading(true);
-
-        try {
-            const userRef = doc(db, 'users', userId);
-            const userDoc = await getDoc(userRef);
-
-            if (!userDoc.exists()) {
-                setError('El usuario no existe');
-                return false;
-            }
-
-            // Actualizar el documento del usuario con los nuevos datos
-            await updateDoc(userRef, formData);
-
-            // Si no se lanzó una excepción, considerar la actualización como exitosa
-            setLoading(false);
-            return true;
-        } catch (error) {
-            setLoading(false);
-            console.error('Error updating user: ', error);
-            setError('Ocurrió un error al actualizar el usuario');
-            return false;
-        }
-    };
-
-
-    const getUser = async (userId) => {
+    const getUser = async (id) => {
         try {
             setLoading(true);
-            const userRef = doc(db, 'users', userId);
-            const userDoc = await getDoc(userRef);
 
-            if (!userDoc.exists()) {
-                setError('El usuario no existe');
-                setLoading(false);
-                return null;
+            const response = await fetch(`${apiUrl}/${id}`);
+
+            if (!response.ok) {
+                throw new Error('Error al obtener el usuario');
+            }
+
+            const user = await response.json();
+
+            setLoading(false);
+
+            return user;
+        } catch (error) {
+            setError(error.message);
+            setLoading(false);
+        }
+    };
+
+    const updateUser = async (id, user) => {
+        try {
+            setLoading(true);
+
+            const response = await fetch(`${apiUrl}/${id}/update`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user),
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al actualizar el usuario');
             }
 
             setLoading(false);
-            return UserModel.fromFirestore(userDoc);
         } catch (error) {
+            setError(error.message);
             setLoading(false);
-            console.error('Error fetching user: ', error);
-            setError('Ocurrió un error al obtener el usuario');
-            return null;
         }
     };
+
+    const deleteUserById = async (id) => {
+        try {
+            setLoading(true);
+
+            const response = await fetch(`${apiUrl}/${id}/delete`, {
+                method: 'DELETE',
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al eliminar el usuario');
+            }
+
+            setLoading(false);
+        } catch (error) {
+            setError(error.message);
+            setLoading(false);
+        }
+    };
+
 
     return { error, addUser, getUsers, updateUser, getUser, loading, deleteUserById };
 };

@@ -45,7 +45,19 @@ const useFirebaseAuth = () => {
         }
     };
 
-    return { user, loading, error, signInWithEmailAndPassword, signOut };
+    const createUser = async (email, password) => {
+        try {
+            setLoading(true);
+            setError(null);
+            await createUserWithEmailAndPassword(auth, email, password
+            );
+        } catch (error) {
+            setError(error.message);
+            console.error('Sign in error:', error);
+        }
+    }
+
+    return { user, loading, error, signInWithEmailAndPassword, signOut, createUser };
 };
 
 export default useFirebaseAuth;

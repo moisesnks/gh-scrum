@@ -8,6 +8,7 @@ import HomePage from "./Views/Home";
 import ErrorPage from "./Views/Error";
 import FormPage from "./Views/Form";
 import UsersPage from "./Views/Users";
+import UserPage from "./Views/User";
 import TaskPage from "./Views/Task";
 
 
@@ -17,7 +18,7 @@ const router = createBrowserRouter(
     <>
       <Route
         element={<AuthLayout />}
-        errorElement={<ErrorPage />}
+        ErrorBoundary={({ error }) => <ErrorPage error={error} />}
       >
         <Route index element={<LoginPage />} />
         <Route path="/home" element={<ProtectedLayout />}>
@@ -25,8 +26,9 @@ const router = createBrowserRouter(
           <Route path="task/:id" element={<TaskPage />} />
           <Route path="form" element={<FormPage />} />
           <Route path="users" element={<UsersPage />} />
+          <Route path="users/:id" element={<UserPage />} />
         </Route>
-      </Route>
+      </Route >
     </>
   )
 );
