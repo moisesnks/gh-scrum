@@ -20,6 +20,12 @@
     flex-direction: column;
 }
 
+.task-body span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .task-title .h3 {
     font-size: 1.5rem;
     font-weight: bold;
@@ -34,6 +40,18 @@
     cursor: pointer;
     color: #fff;
     text-decoration: underline;
+}
+
+.task-footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.task-responsibles {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 /* Estilos para el resto de componentes */

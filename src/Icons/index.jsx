@@ -1,19 +1,36 @@
-export function TaskIcon({ isBusy, forceColor = "", size = 30 }) {
-    let color = isBusy ? "#7C57AB" : "#57AB5A";
-    if (forceColor !== "") {
-        color = forceColor;
+export function TaskIcon({ isBusy, size = 30, onClick }) {
+    let color = "";
+
+    switch (isBusy) {
+        case "pending":
+            color = "#ccc";
+            break;
+        case "inprogress":
+            color = "rgb(0, 150, 136)";
+            break;
+        case "completed":
+            color = "rgb(76, 175, 80)";
+            break;
+        default:
+            color = "#677380";
+            break;
     }
 
-
-
+    const handleIconClick = () => {
+        if (!isBusy && onClick) {
+            onClick();
+        }
+    };
 
     return (
         <svg
+            className={`task-icon ${isBusy ? 'busy' : ''}`}
             width={size}
             height={size}
             viewBox="0 0 31 30"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            onClick={handleIconClick}
         >
             <g clipPath="url(#clip0_3_4)">
                 <path

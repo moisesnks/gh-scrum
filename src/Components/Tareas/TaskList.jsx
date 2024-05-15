@@ -38,12 +38,15 @@ const TaskList = () => {
         (acc, task) => {
             if (task.status === "pending") {
                 acc.pending++;
+            } else if (task.status === "inprogress") {
+                acc.inprogress++;
             } else {
                 acc.completed++;
             }
+            acc.total++;
             return acc;
         },
-        { pending: 0, completed: 0 }
+        { pending: 0, inprogress: 0, completed: 0, total: 0 }
     );
 
     return (
@@ -67,30 +70,60 @@ const TaskList = () => {
                             className={`task-count ${active === "pending" ? "active" : ""}`}
                             onClick={() => filterTasks("pending")}
                         >
-                            <TaskIcon forceColor={active === "pending" ? "#ccc" : "#717e8b"} size={"1.2rem"} />
+                            <TaskIcon
+                                isBusy={active && active === "pending" ? "pending" : ""}
+                                size={"1.2rem"}
+                            />
                             {numTasks.pending} Pendientes
+                        </span>
+                        {/*  In progress: */}
+                        <span
+                            className={`task-count ${active === "inprogress" ? "active" : ""}`}
+                            onClick={() => filterTasks("inprogress")}
+                        >
+                            <TaskIcon
+                                isBusy={active && active === "inprogress" ? "inprogress" : ""}
+                                size={"1.2rem"}
+                            />
+                            {numTasks.inprogress} En progreso
                         </span>
                         <span
                             className={`task-count ${active === "completed" ? "active" : ""}`}
                             onClick={() => filterTasks("completed")}
                         >
-                            <span> ✔ </span>
+                            <TaskIcon isBusy={active && active === "completed" ? "completed" : ""} size={"1.2rem"} />
                             {numTasks.completed} Completadas
                         </span>
+                        {/* Total */}
+                        <span
+                            className={`task-count ${active === "all" ? "active" : ""}`}
+                            onClick={() => filterTasks("all")}
+                        >
+                            <span> 📝 </span>
+                            {numTasks.total} Total
+                        </span>
+
                     </>
                 )}
             </div>
-            <ul className="task-list-container">
-                {filteredTasks.map((task) => (
-                    <Task
-                        key={task.id}
-                        task={task}
-                        isMarkable={true}
-                        handleTaskSelect={handleTaskSelect}
-                        onClick={() => handleClick(task)}
-                    />
-                ))}
-            </ul>
+            {filteredTasks.length > 0 ? (
+                <ul className="task-list-container">
+                    {filteredTasks.map((task) => (
+                        <Task
+                            key={task.id}
+                            task={task}
+                            isMarkable={true}
+                            handleTaskSelect={handleTaskSelect}
+                            onClick={() => handleClick(task)}
+                        />
+                    ))}
+                </ul>
+            ) : (
+                <div className="notask-container">
+                    {/* No hay tareas en {status} */}
+                    <p>No hay tareas en {active}.</p>
+                </div>
+            )}
         </div>
     );
 };

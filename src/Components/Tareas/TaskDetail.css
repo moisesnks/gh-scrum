@@ -1,0 +1,96 @@
+.task-detail {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #30363d;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.task-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task-header h1 {
+    color: #58a6ff;
+    margin: 0;
+}
+
+.task-meta {
+    margin-top: 20px;
+}
+
+.task-description {
+    margin-bottom: 20px;
+}
+
+.task-author {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.author-photo {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.status {
+    font-weight: bold;
+}
+
+.status.completed {
+    color: #57AB5A;
+}
+
+.responsables {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.responsable {
+    display: flex;
+    align-items: center;
+}
+
+.responsable-photo {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.subtasks {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.subtasks li {
+    padding: 10px;
+    border-bottom: 1px solid #30363d;
+}
+
+.subtasks li.completed {
+    text-decoration: line-through;
+    color: #8b949e;
+}
+
+.complete-button {
+    background-color: #238636;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.complete-button:hover {
+    background-color: #2ea043;
+}

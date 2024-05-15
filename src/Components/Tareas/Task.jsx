@@ -1,6 +1,7 @@
 import React from "react";
 import { TaskIcon } from "../../Icons";
-import "./Task.css"; // Importa el archivo CSS con las clases
+import "./Task.css";
+
 
 
 /* 
@@ -56,7 +57,7 @@ import "./Task.css"; // Importa el archivo CSS con las clases
 */
 
 
-const Responsible = ({ responsable }) => {
+export const Responsible = ({ responsable }) => {
     return (
         <div className="responsible">
             <img src={responsable.photoURL} alt={responsable.displayName} />
@@ -65,7 +66,7 @@ const Responsible = ({ responsable }) => {
     );
 };
 
-const Subtask = ({ subtask }) => {
+export const Subtask = ({ subtask }) => {
     return (
         <div className="subtask">
             <input type="checkbox" checked={subtask.completada} readOnly />
@@ -74,7 +75,7 @@ const Subtask = ({ subtask }) => {
     );
 };
 
-const AuthorInfo = ({ autorData }) => {
+export const AuthorInfo = ({ autorData }) => {
     return (
         <div className="author-info">
             <img src={autorData.photoURL} alt={autorData.displayName} />
@@ -86,7 +87,7 @@ const AuthorInfo = ({ autorData }) => {
 
 
 const Task = ({ task, isMarkable, handleTaskSelect, onClick }) => {
-    const isBusy = task.status === "completed" ? true : false;
+    const isBusy = task.status || '';
 
     return (
         <li className="task-container" >
@@ -98,9 +99,11 @@ const Task = ({ task, isMarkable, handleTaskSelect, onClick }) => {
                 />
             )}
             <div className="task-title">
-                <TaskIcon isBusy={isBusy} />
                 <div className="task-body">
-                    <span onClick={onClick} className="h3">{task.titulo}</span>
+                    <span onClick={onClick} className="h3">
+                        <TaskIcon isBusy={isBusy} />
+                        {task.titulo}
+                    </span>
                     <p>{task.descripcion}</p>
                     <div className="task-footer">
                         <div className="task-responsibles">

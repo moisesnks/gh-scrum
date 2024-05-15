@@ -9,7 +9,7 @@ const useTaskList = () => {
     const [loading, setLoading] = useState(true);
     const [filteredTasks, setFilteredTasks] = useState([]);
     const [selectAll, setSelectAll] = useState(false);
-    const [active, setActive] = useState('pending');
+    const [active, setActive] = useState('all');
 
     useEffect(() => {
         const fetchTasks = async () => {
@@ -31,6 +31,7 @@ const useTaskList = () => {
     const filterTasks = (status) => {
         if (status === 'all') {
             setFilteredTasks(tasks);
+            setActive(status);
         } else {
             const filtered = tasks.filter((task) => task.status === status);
             setFilteredTasks(filtered);
