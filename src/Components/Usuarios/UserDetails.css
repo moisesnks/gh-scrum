@@ -1,0 +1,85 @@
+.user-card.details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    max-height: 80vh;
+}
+
+.user-meta {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    height: 100%;
+
+}
+
+.edit-button {
+    padding: 8px 16px;
+    background-color: #444c56;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 3em;
+}
+
+.edit-button:hover {
+    background-color: #333;
+}
+
+.update-button {
+    padding: 8px 16px;
+    background-color: #444c56;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 3em;
+}
+
+.update-button:hover {
+    background-color: #333;
+}
+
+.delete-button {
+    padding: 8px 16px;
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 3em;
+}
+
+.delete-button:hover {
+    background-color: #ff3333;
+}
+
+.save-button {
+    padding: 8px 16px;
+    background-color: #444c56;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 3em;
+}
+
+.save-button:hover {
+    background-color: #333;
+}
+
+.user-card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    max-height: 80vh;
+}

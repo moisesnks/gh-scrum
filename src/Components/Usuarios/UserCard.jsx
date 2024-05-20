@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "./UserCard.css";
 import { FaPencilAlt, FaCheck, FaTimes } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 import {
     FormName,
     FormRol,
@@ -36,9 +37,13 @@ const UserCard = ({ user, isEditable, isSelected, onSelect, updateUser }) => {
         }));
     };
 
+    const handleClickCard = () => {
+        onSelect(user.id);
+    }
+
 
     return (
-        <div className={`user-card ${isSelected ? 'selected' : ''}`}>
+        <div className={`user-card ${isSelected ? 'selected' : ''}`} onClick={handleClickCard}>
             <div className="user-avatar">
                 <div className="checkbox-input">
                     <input
@@ -62,10 +67,20 @@ const UserCard = ({ user, isEditable, isSelected, onSelect, updateUser }) => {
                         <FormName editedUser={editedUser} handleFieldChange={handleFieldChange} />
 
                     ) : (
-                        editedUser.displayName
+                        // Mostrar un enlace al /:id del usuario en el nombre si no está en modo edición
+                        <Link className='linkto userid' to={`${editedUser.id}`}>{editedUser.displayName}</Link>
                     )}</span>
-                    <span>Email: {editedUser.email}</span>
-                    <span>RUT: {editedUser.rut}</span>
+                    <span>
+                        {
+                            !editMode && (
+                                <>
+                                    Email: {editedUser.email}
+                                    <br />
+                                    Rut: {editedUser.rut}
+                                </>
+                            )
+                        }
+                    </span>
                 </div>
                 <div className="hr"></div>
                 <div className="row">

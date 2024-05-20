@@ -22,6 +22,6 @@ const ErrorComponent = () => {
             <Link to='/'>Volver al inicio</Link>
         </div>
     );
-};
+}
 
 export default ErrorComponent;

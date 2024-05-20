@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useAuth } from '../../Hooks/useAuth';
-import TaskModel from './TaskModel';
 import Api from './api';
 
 const useTaskForm = () => {
@@ -14,7 +13,6 @@ const useTaskForm = () => {
         descripcion: '',
         autorReference: uid,
         autorName: displayName,
-        fechaCreacion: new Date(),
         tipo: 'features',
         cargo: 'front',
         numeroTareas: 0, // Mantén un contador de número de tareas
@@ -61,34 +59,31 @@ const useTaskForm = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validar los campos requeridos antes de crear la tarea
-        if (!formData.titulo.trim()) {
-            setError('Por favor, ingresa un título para la tarea.');
-            return;
+        try {
+            await api.addTask(formData);
+            setFormData({
+                titulo: '',
+                descripcion: '',
+                autorReference: uid,
+                autorName: displayName,
+                tipo: 'features',
+                cargo: 'front',
+                numeroTareas: 0,
+                esfuerzo: 0,
+                incertidumbre: 0,
+                horas: 0,
+                status: 'pending',
+                subtasks: [],
+                responsables: [],
+            });
+        } catch (error) {
+            setError(error.message);
         }
-
-        if (!formData.descripcion.trim()) {
-            setError('Por favor, ingresa una descripción para la tarea.');
-            return;
-        }
-
-        if (!formData.subtasks.length) {
-            setError('Por favor, agrega al menos una subtarea.');
-            return;
-        }
-
-        if (formData.subtasks.some((subtask) => !subtask.label.trim())) {
-            setError('Por favor, asegúrate de completar todas las etiquetas de las subtareas.');
-            return;
-        }
-
-        // Si se superan todas las validaciones, crear la tarea
-        const newTask = new TaskModel(formData);
-        api.addTask(newTask.toFirestore());
     };
+
 
     return {
         formData,
