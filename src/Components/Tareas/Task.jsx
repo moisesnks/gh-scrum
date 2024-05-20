@@ -16,10 +16,6 @@ import "./Task.css";
   "horas": 0,
   "incertidumbre": 0,
   "numeroTareas": 2,
-  "responsables": [
-    "Tgyr4FPYNzgU7wt2UTldzJ577Pn1",
-    "tetBpdOlLXSsHgabow3wNTG9Xx13"
-  ],
   "status": "completed",
   "subtasks": [
     {
@@ -39,7 +35,7 @@ import "./Task.css";
     "email": "mleiva@utem.cl",
     "photoURL": "https://firebasestorage.googleapis.com/v0/b/lumo-tasks.appspot.com/o/profile_images%2FuwjmXZPe9mbt6pePcg6KrRKEZ8k2?alt=media&token=b5d0da73-bf24-4943-8d1f-76e044bcf3d6"
   },
-  "responsablesData": [
+  "responsables": [
     {
       "id": "Tgyr4FPYNzgU7wt2UTldzJ577Pn1",
       "displayName": "Simón Carrasco",
@@ -107,7 +103,7 @@ const Task = ({ task, isMarkable, handleTaskSelect, onClick }) => {
                     <p>{task.descripcion}</p>
                     <div className="task-footer">
                         <div className="task-responsibles">
-                            {task.responsablesData.map((responsable) => (
+                            {task.responsables.map((responsable) => (
                                 <Responsible key={responsable.id} responsable={responsable} />
                             ))}
                         </div>

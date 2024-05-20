@@ -1,0 +1,23 @@
+/* Path: src/Components/EstimationChart.css */
+
+.estimation-chart {
+    max-width: 800px;
+    max-height: 80vh;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.estimation-chart .slider {
+    display: flex;
+    align-items: center;
+}
+
+.estimation-chart .slider .slider-label {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    gap: 0.5rem;
+}

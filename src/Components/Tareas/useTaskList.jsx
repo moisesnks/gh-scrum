@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import Api from './api';
-import { forEach } from 'lodash';
 
 const useTaskList = () => {
     const api = Api();
@@ -27,6 +26,7 @@ const useTaskList = () => {
 
         fetchTasks();
     }, []);
+
 
     const filterTasks = (status) => {
         if (status === 'all') {

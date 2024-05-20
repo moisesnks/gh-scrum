@@ -31,7 +31,7 @@ const TaskList = () => {
     };
 
     if (loading) {
-        return <Spinner />;
+        return <Spinner text={"Cargando tareas..."} />;
     }
 
     const numTasks = tasks.reduce(
@@ -60,6 +60,7 @@ const TaskList = () => {
                         <select onChange={(e) => handleChangeStatus(e.target.value)}>
                             <option>Marcar como</option>
                             <option value="pending">Pendientes</option>
+                            <option value="inprogress">En progreso</option>
                             <option value="completed">Completadas</option>
                         </select>
                         <button onClick={handleDeleteTasks}>Eliminar</button>

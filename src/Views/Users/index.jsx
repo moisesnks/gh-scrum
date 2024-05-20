@@ -3,7 +3,7 @@ import ManagementUsers from "../../Components/Usuarios/ManagemenetUsers";
 
 const UsersPage = () => {
     return (
-        <div>
+        <div className="container">
             <ManagementUsers />
         </div>
     );

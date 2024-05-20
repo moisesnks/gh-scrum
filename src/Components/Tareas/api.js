@@ -1,14 +1,27 @@
 // path: src/Components/Tareas/api.js
 import { useState } from 'react';
+import { useAuth } from '../../Hooks/useAuth';
 
-const apiUrl = 'https://backend-lumotareas.vercel.app/tasks';
+const apiUrl = 'http://localhost:3000/tasks';
 
 const useTaskApi = () => {
+    const { token } = useAuth();
     const [error, setError] = useState(null);
 
+    const fetchWithAuthorization = async (url, options = {}) => {
+        const headers = {
+            ...options.headers,
+            Authorization: `Bearer ${token}`,
+        };
+
+        return fetch(url, { ...options, headers });
+    };
+
+
     const addTask = async (task) => {
+
         try {
-            const response = await fetch(apiUrl + '/new', {
+            const response = await fetchWithAuthorization(`${apiUrl}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,7 +39,7 @@ const useTaskApi = () => {
 
     const getTasks = async () => {
         try {
-            const response = await fetch(apiUrl);
+            const response = await fetchWithAuthorization(apiUrl);
 
             if (!response.ok) {
                 throw new Error('Error al obtener las tareas');
@@ -40,7 +53,7 @@ const useTaskApi = () => {
 
     const getTask = async (id) => {
         try {
-            const response = await fetch(`${apiUrl}/${id}`);
+            const response = await fetchWithAuthorization(`${apiUrl}/${id}`);
 
             if (!response.ok) {
                 throw new Error('Error al obtener la tarea');
@@ -52,28 +65,12 @@ const useTaskApi = () => {
         }
     };
 
-    const updateTaskStatus = async (id, status) => {
-        try {
-            const response = await fetch(`${apiUrl}/${id}/update`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ status: status }),
-            });
 
-            if (!response.ok) {
-                throw new Error('Error al actualizar el estado de la tarea');
-            }
-        } catch (error) {
-            setError(error.message);
-        }
-    };
 
 
     const deleteTask = async (id) => {
         try {
-            const response = await fetch(`${apiUrl}/${id}/delete`, {
+            const response = await fetchWithAuthorization(`${apiUrl}/${id}`, {
                 method: 'DELETE',
             });
 
@@ -87,8 +84,8 @@ const useTaskApi = () => {
 
     const updateTask = async (id, task) => {
         try {
-            const response = await fetch(`${apiUrl}/${id}/update`, {
-                method: 'PATCH',
+            const response = await fetchWithAuthorization(`${apiUrl}/${id}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -97,6 +94,24 @@ const useTaskApi = () => {
 
             if (!response.ok) {
                 throw new Error('Error al actualizar la tarea');
+            }
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    const updateTaskStatus = async (id, status) => {
+        try {
+            const response = await fetchWithAuthorization(`${apiUrl}/${id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ status }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al actualizar el estado de la tarea');
             }
         } catch (error) {
             setError(error.message);

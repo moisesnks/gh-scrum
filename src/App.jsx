@@ -10,6 +10,8 @@ import FormPage from "./Views/Form";
 import UsersPage from "./Views/Users";
 import UserPage from "./Views/User";
 import TaskPage from "./Views/Task";
+import MetricasPage from "./Views/Metricas";
+import PlannigPokerPage from "./Views/PlanningPoker";
 
 
 
@@ -27,6 +29,13 @@ const router = createBrowserRouter(
           <Route path="form" element={<FormPage />} />
           <Route path="users" element={<UsersPage />} />
           <Route path="users/:id" element={<UserPage />} />
+          <Route path="metrics" element={<MetricasPage />} />
+          <Route path="planning-poker" element={<PlannigPokerPage />} />
+          <Route path="planning-poker/create-room" element={
+            <div>
+              <h1>Create Room</h1>
+            </div>
+          } />
         </Route>
       </Route >
     </>

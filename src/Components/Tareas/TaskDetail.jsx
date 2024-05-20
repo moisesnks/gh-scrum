@@ -35,7 +35,7 @@ import './TaskDetail.css';
   ],
   "tipo": "features",
   "titulo": "API",
-  "autorData": {
+  "autor": {
     "id": "tetBpdOlLXSsHgabow3wNTG9Xx13",
     "displayName": "Moisés Leiva",
     "email": "mleiva@utem.cl",
@@ -60,61 +60,63 @@ import './TaskDetail.css';
 
 
 const TaskDetail = ({ taskId }) => {
-    const { task, loading, error, updateTaskDetails } = useTaskDetails(taskId);
+  const { task, loading, error, updateTaskDetails } = useTaskDetails(taskId);
 
-    if (loading) {
-        const text = `Buscando la tarea ${taskId}...`;
-        return <Spinner text={text} />;
-    }
+  if (loading) {
+    const text = `Buscando la tarea ${taskId}...`;
+    return <Spinner text={text} />;
+  }
 
-    if (error) {
-        return <p>{error}</p>;
-    }
+  if (error) {
+    return <p>{error}</p>;
+  }
 
-    if (!task) {
-        return <p>No se encontró la tarea.</p>;
-    }
+  if (!task) {
+    return <p>No se encontró la tarea.</p>;
+  }
 
-    const handleUpdateTask = async (formData) => {
-        await updateTaskDetails(formData);
-        // Lógica adicional después de la actualización si es necesaria
-    };
+  const handleUpdateTask = async (formData) => {
+    await updateTaskDetails(formData);
+    // Lógica adicional después de la actualización si es necesaria
+  };
 
-    return (
-        <div className="task-detail">
-            <div className="task-header">
-                <h1>{task.titulo}</h1>
-                <TaskIcon isBusy={task.status !== 'completed'} size={40} />
-            </div>
-            <div className="task-meta">
-                <p className="task-description">{task.descripcion}</p>
-                <div className="task-author">
-                    <img src={task.autorData.photoURL} alt={task.autorData.displayName} className="author-photo" />
-                    <p>{task.autorData.displayName}</p>
-                    <p>{new Date(task.fechaCreacion).toLocaleDateString()}</p>
-                </div>
-                <p>Status: <span className={`status ${task.status}`}>{task.status}</span></p>
-            </div>
-            <h3>Responsables:</h3>
-            <div className="responsables">
-                {task.responsablesData.map(responsable => (
-                    <div key={responsable.id} className="responsable">
-                        <img src={responsable.photoURL} alt={responsable.displayName} className="responsable-photo" />
-                        <p>{responsable.displayName}</p>
-                    </div>
-                ))}
-            </div>
-            <h3>Subtareas:</h3>
-            <ul className="subtasks">
-                {task.subtasks.map((subtask, index) => (
-                    <li key={index} className={subtask.completada ? 'completed' : ''}>
-                        {subtask.label}
-                    </li>
-                ))}
-            </ul>
-            <button onClick={() => handleUpdateTask({ status: 'completed' })} className="complete-button">Marcar como Completada</button>
+  return (
+    <div className="task-detail">
+      <div className="task-header">
+        <h1>{task.titulo}</h1>
+        <TaskIcon isBusy={task.status} size={40} />
+      </div>
+      <div className="task-meta">
+        <p className="task-description">{task.descripcion}</p>
+        <div className="task-author"
+          style={{ display: 'flex', gap: '1rem' }}
+        >
+          <img src={task.autor.photoURL} alt={task.autor.displayName} className="author-photo" />
+          <p>{task.autor.displayName}</p>
+          <p>{task.fechaCreacion}</p>
         </div>
-    );
+        <p>Status: <span className={`status ${task.status}`}>{task.status}</span></p>
+      </div>
+      <h3>Responsables:</h3>
+      <div className="responsables">
+        {task.responsables.map(responsable => (
+          <div key={responsable.id} className="responsable">
+            <img src={responsable.photoURL} alt={responsable.displayName} className="responsable-photo" />
+            <p>{responsable.displayName}</p>
+          </div>
+        ))}
+      </div>
+      <h3>Subtareas:</h3>
+      <ul className="subtasks">
+        {task.subtasks.map((subtask, index) => (
+          <li key={index} className={subtask.completada ? 'completed' : ''}>
+            {subtask.label}
+          </li>
+        ))}
+      </ul>
+      <button onClick={() => handleUpdateTask({ status: 'completed' })} className="complete-button">Marcar como Completada</button>
+    </div>
+  );
 };
 
 export default TaskDetail;

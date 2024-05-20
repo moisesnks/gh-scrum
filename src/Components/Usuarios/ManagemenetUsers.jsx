@@ -18,7 +18,7 @@ const ManagementUsers = () => {
 
     useEffect(() => {
         getUsers();
-    }, []); // Se ejecuta solo al montar el componente
+    }, []); //
 
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [showAddUserModal, setShowAddUserModal] = useState(false);
