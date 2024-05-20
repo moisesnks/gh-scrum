@@ -31,6 +31,7 @@ const PlanningPoker = () => {
                 <LinksContainer>
                     <LinkButton to="create-room">Create Room</LinkButton>
                     <LinkButton to="join-room">Join Room</LinkButton>
+                    <LinkButton to="room">Room DEV</LinkButton>
                 </LinksContainer>
             </Container>
         )
