@@ -17,6 +17,12 @@ export const AuthProvider = ({ children }) => {
             setToken(user ? await getIdToken(user) : null);
             setLoading(false);
             setIsAdmin(user ? (await getIdTokenResult(user)).claims.admin : false);
+
+            if (user) {
+                document.title = `LumoAgile - ${user.displayName}`
+            } else {
+                document.title = 'LumoAgile';
+            }
         });
 
         return unsubscribe;
