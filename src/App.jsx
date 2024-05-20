@@ -9,6 +9,7 @@ import ErrorPage from "./Views/Error";
 import FormPage from "./Views/Form";
 import UsersPage from "./Views/Users";
 import TaskPage from "./Views/Task";
+import MetricasPage from "./Views/Metricas";
 
 
 
@@ -25,6 +26,8 @@ const router = createBrowserRouter(
           <Route path="task/:id" element={<TaskPage />} />
           <Route path="form" element={<FormPage />} />
           <Route path="users" element={<UsersPage />} />
+          <Route path="metrics" element={<MetricasPage />} />
+
         </Route>
       </Route>
     </>

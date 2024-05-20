@@ -1,15 +1,25 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useRouteError } from 'react-router-dom';
 
 const ErrorComponent = () => {
+    let error = useRouteError();
+
+    const renderError = () => {
+        if (error) {
+            return (
+                <div>
+                    <h2>{error.message}</h2>
+                    <p>{error.stack}</p>
+                </div>
+            );
+        }
+    };
     return (
-        <div>
-            <h1>¡Oops! Algo salió mal.</h1>
-            <p>Lo sentimos, ha ocurrido un error inesperado.</p>
-            <p>
-                Puedes volver atrás haciendo clic en el siguiente enlace:
-                <Link to="/">Volver</Link>
-            </p>
+        <div className='container'>
+            <h1>Ha ocurrido un error</h1>
+            <p>Detalles del error:</p>
+            {renderError()}
+            <Link to='/'>Volver al inicio</Link>
         </div>
     );
 };
