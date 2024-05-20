@@ -4,7 +4,7 @@ import './LoginForm.css';
 import { Navigate } from 'react-router-dom';
 
 const LoginForm = () => {
-    const { user, loading, error, login, logout } = useAuth(); // Obtén las funciones de autenticación del contexto
+    const { user, loading, error, login } = useAuth(); // Obtén las funciones de autenticación del contexto
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 

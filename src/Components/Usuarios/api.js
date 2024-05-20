@@ -1,8 +1,21 @@
 // path: src/Components/Usuarios/api.js
 
 import { useState } from 'react';
-const apiUrl = 'https://backend-lumotareas.vercel.app/users';
+import { useAuth } from '../../Hooks/useAuth';
+const apiUrl = 'http://localhost:3000/users';
+
+
 const useUserApi = () => {
+    const { token } = useAuth();
+
+    const fetchWithAuthorization = async (url, options = {}) => {
+        const headers = {
+            ...options.headers,
+            Authorization: `Bearer ${token}`,
+        };
+
+        return fetch(url, { ...options, headers });
+    };
 
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -23,7 +36,7 @@ const useUserApi = () => {
 
             const password = generatePasswordFromEmailAndRut(user.email, user.rut);
             const tareasReference = [];
-            const response = await fetch(apiUrl + '/new', {
+            const response = await fetchWithAuthorization(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -46,7 +59,7 @@ const useUserApi = () => {
         try {
             setLoading(true);
 
-            const response = await fetch(apiUrl);
+            const response = await fetchWithAuthorization(apiUrl);
 
             if (!response.ok) {
                 throw new Error('Error al obtener los usuarios');
@@ -67,7 +80,8 @@ const useUserApi = () => {
         try {
             setLoading(true);
 
-            const response = await fetch(`${apiUrl}/${id}`);
+            const response = await fetchWithAuthorization(`${apiUrl}/${id}`);
+
 
             if (!response.ok) {
                 throw new Error('Error al obtener el usuario');
@@ -88,7 +102,7 @@ const useUserApi = () => {
         try {
             setLoading(true);
 
-            const response = await fetch(`${apiUrl}/${id}/update`, {
+            const response = await fetchWithAuthorization(`${apiUrl}/${id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -111,7 +125,7 @@ const useUserApi = () => {
         try {
             setLoading(true);
 
-            const response = await fetch(`${apiUrl}/${id}/delete`, {
+            const response = await fetchWithAuthorization(`${apiUrl}/${id}`, {
                 method: 'DELETE',
             });
 

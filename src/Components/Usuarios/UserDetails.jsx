@@ -24,6 +24,9 @@ const UserDetails = ({ id }) => {
         fetchUser();
     }, [id]);
 
+    console.log(user);
+
+
     if (loading) {
         return <Spinner text={`Buscando el usuario ${id}...`} />;
     }
@@ -112,9 +115,9 @@ const UserDetails = ({ id }) => {
                         )}</p>
                     </div>
                     <h3>Tareas:</h3>
-                    {user.tareasData.length ? (
+                    {user.tasks.length ? (
                         <ul>
-                            {user.tareasData.map((task) => (
+                            {user.tasks.map((task) => (
                                 <div key={task.id} className='border container'>
                                     <h4>{task.titulo}</h4>
                                     <p>{task.descripcion}</p>
