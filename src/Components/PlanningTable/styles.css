@@ -32,6 +32,7 @@
     max-width: 100%;
     min-height: 38rem;
     width: 44rem;
+    position: relative;
 }
 
 .table-module .top {

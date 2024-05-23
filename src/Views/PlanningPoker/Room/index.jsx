@@ -1,76 +1,68 @@
+// Path: src/Views/PlanningPoker/Room/index.jsx
 import React from "react";
 import PlanningTable from "../../../Components/PlanningTable";
 
-const Room = () => {
-    const usersList = [
-        { displayName: "Juan", selectedCard: "3" },
-        { displayName: "Pedro", selectedCard: "3" },
-        { displayName: "Maria", selectedCard: "3" },
-        { displayName: "Jose", selectedCard: "3" },
-        { displayName: "Roberto", selectedCard: "2" },
+const users = [
+    { id: 1, name: 'John Doe', role: 'Participant', selectedCard: '1' },
+    { id: 2, name: 'Jane Doe', role: 'Participant', selectedCard: '2' },
+    { id: 3, name: 'John Smith', role: 'Participant', selectedCard: '2' },
+    { id: 4, name: 'Jane Smith', role: 'Participant', selectedCard: '2' },
+    { id: 5, name: 'John Johnson', role: 'Participant', selectedCard: '3' },
+    { id: 6, name: 'Jane Johnson', role: 'Participant', selectedCard: '' },
+    { id: 7, name: 'John Brown', role: 'Participant', selectedCard: '' },
+    { id: 8, name: 'Jane Brown', role: 'Participant', selectedCard: '' },
+];
 
-    ]
 
-    // Función para distribuir los usuarios en la mesa de manera dinámica
-    const distributeUsers = (users) => {
-        const table = {
-            top: [],
-            left: [],
-            right: [],
-            bottom: [],
-        };
 
-        const usersLength = users.length;
-        const usuariosPorFila = Math.ceil(usersLength / 3);
-        const usuariosPorColumna = Math.ceil(usersLength / 4);
+const distributeUsers = (users) => {
+    // Distribute users into 4 groups, top, right, bottom, left
+    // dinamically based on the number of users
+    const top = [];
+    const right = [];
+    const bottom = [];
+    const left = [];
 
-        let top = 0;
-        let left = 0;
-        let right = 0;
-        let bottom = 0;
-
-        for (let i = 0; i < usersLength; i++) {
-            if (i < usuariosPorFila) {
-                table.top.push(users[i]);
-                top++;
-            } else if (i < usuariosPorFila + usuariosPorColumna) {
-                table.right.push(users[i]);
-                right++;
-            } else if (i < usuariosPorFila + usuariosPorColumna * 2) {
-                table.bottom.push(users[i]);
-                bottom++;
-            } else {
-                table.left.push(users[i]);
-                left++;
-            }
+    users.forEach((user, index) => {
+        if (index < 3) {
+            top.push(user);
+        } else if (index < 5) {
+            right.push(user);
+        } else if (index < 7) {
+            bottom.push(user);
+        } else {
+            left.push(user);
         }
+    });
 
-        return table;
+    const obj = {
+        top,
+        right,
+        bottom,
+        left,
     };
 
-    const [users, setUsers] = React.useState(distributeUsers(usersList));
+    return obj;
+}
 
-    const handleClear = () => {
-        // Limpiar las cartas seleccionadas
-        const usersArray = Object.values(users).flat();
-        const newUsers = usersArray.map(user => ({ ...user, selectedCard: "" }));
-        const newTable = distributeUsers(newUsers);
-        setUsers(newTable);
-    }
+import useRoom from "./useRoom";
+import { useAuth } from "../../../Hooks/useAuth";
 
-    const asignarRandom = () => {
-        const fibonacci = [1, 2, 3, 5];
-        const usersArray = Object.values(users).flat();
-        const newUsers = usersArray.map(user => ({ ...user, selectedCard: fibonacci[Math.floor(Math.random() * fibonacci.length)] }));
-        const newTable = distributeUsers(newUsers);
-        setUsers(newTable);
+const Room = () => {
+    const { user, getName } = useAuth();
 
-    }
+    let userName = getName();
+
+    const { room, loading, error, createRoom, joinRoom, getRoom, vote, revealVotes } = useRoom(userName);
+
+    const usersList = distributeUsers(users);
 
     return (
+
         <div className="container">
-            <button onClick={asignarRandom}>Asignar random</button>
-            <PlanningTable users={users} onClear={handleClear} />
+            <h1>Planning Poker Room</h1>
+            <h2>Hola, {userName}</h2>
+            {/* <PlanningTable users={usersList} /> */}
         </div>
     );
 }
