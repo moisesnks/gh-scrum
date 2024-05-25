@@ -5,6 +5,29 @@
     gap: .5em;
 }
 
+.num-users {
+    font-weight: bold;
+    color: #fff;
+    border-radius: 50%;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5em;
+    height: 1.5em;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.usuarios-list .h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    gap: 10px;
+    font-size: 1em;
+
+}
+
 .usuario .groupName {
     display: flex;
     align-items: center;
@@ -66,6 +89,7 @@
     gap: 10px;
     height: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .usuarios-list .content .usuario:last-child {

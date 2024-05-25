@@ -20,7 +20,7 @@ function User({ user }) {
 function UsersList({ users }) {
     return (
         <div className="usuarios-list">
-            <span className='h2'> Lista de Usuarios </span>
+            <span className='h2'> Lista de Usuarios <span className='num-users'> {users.length} </span></span>
             <div className="content">
                 {users.map((user) => (
                     <User key={user.displayName} user={user} />
