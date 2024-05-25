@@ -1,7 +1,40 @@
 // Chat.jsx
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Chat.css'; // Asegúrate de importar los estilos CSS
 import { ArrowSendIcon } from '../../Icons';
+
+function EmojiDropdown({ onClick }) {
+    // los emojis son clickeables y se devuelven al emojiButton
+    const handleEmojiClick = (emoji) => {
+        onClick(emoji);
+    }
+    return (
+        <div className='emoji-dropdown'>
+            <div onClick={() => handleEmojiClick('😃')}>😃</div>
+            <div onClick={() => handleEmojiClick('👍')}>👍</div>
+            <div onClick={() => handleEmojiClick('❤️')}>❤️</div>
+            <div onClick={() => handleEmojiClick('😂')}>😂</div>
+            <div onClick={() => handleEmojiClick('😢')}>😢</div>
+        </div>
+    );
+}
+
+function EmojiButton({ onInputChange }) {
+    // usa el estado para mostrar/ocultar el dropdown
+    const [showDropdown, setShowDropdown] = useState(false);
+
+    const handleEmojiClick = (emoji) => {
+        setShowDropdown(false);
+        onInputChange(emoji);
+    }
+
+    return (
+        <div className='emoji-button' onClick={() => setShowDropdown(!showDropdown)}>
+            😃
+            {showDropdown && <EmojiDropdown onClick={handleEmojiClick} />}
+        </div>
+    );
+}
 
 function ChatMessage({ message, isCurrentUser }) {
     return (
@@ -18,6 +51,7 @@ function ChatMessage({ message, isCurrentUser }) {
 
 function Chat({ messages, currentUser }) {
     const chatRef = useRef(null);
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         // Scroll al final del chat cuando los mensajes cambian
@@ -25,6 +59,18 @@ function Chat({ messages, currentUser }) {
             chatRef.current.scrollTop = chatRef.current.scrollHeight;
         }
     }, [messages]);
+
+    const handleSendMessage = () => {
+        // Lógica para enviar el mensaje
+        console.log('Mensaje enviado:', message);
+        setMessage('');
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleSendMessage();
+        }
+    };
 
     return (
         <>
@@ -42,9 +88,15 @@ function Chat({ messages, currentUser }) {
             </div>
 
             <div className="chat-input">
-                <span className='emoji-button'> 😃 </span>
-                <input type="text" placeholder="Escribe un mensaje" />
-                <div className='send-button'>
+                <EmojiButton onInputChange={(emoji) => setMessage(message + emoji)} />
+                <input
+                    type="text"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Escribe un mensaje..."
+                    onKeyDown={handleKeyDown}
+                />
+                <div className='send-button' onClick={handleSendMessage}>
                     <ArrowSendIcon size={14} />
                 </div>
             </div>
