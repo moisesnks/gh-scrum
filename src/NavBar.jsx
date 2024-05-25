@@ -1,46 +1,90 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { BarsIcon } from './Icons';
+import { Link, useLocation } from 'react-router-dom';
+import { ArrowIcon } from './Icons';
 import './NavBar.css';
 import { useAuth } from './Hooks/useAuth';
 
 const NavBar = () => {
     const { logout, isAdmin } = useAuth();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+    const [arrowColor, setArrowColor] = useState("#CCCCCC");
+
+    const location = useLocation();
+
+    const handleMouseEnter = () => {
+        setArrowColor("#FFFFFF");
+    };
+
+    const handleMouseLeave = () => {
+        setArrowColor("#CCCCCC");
+    };
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
+    const toggleSubMenu = () => {
+        setIsSubMenuOpen(!isSubMenuOpen);
+    };
+
     const links = [
         { to: '/home', label: 'Home' },
         { to: '/home/form', label: 'Crear Tarea', needsAdmin: true },
-        { to: '/home/kanban', label: 'Kanban' },
+        // { to: '/home/kanban', label: 'Kanban' },
         { to: '/home/metrics', label: 'Métricas', needsAdmin: true },
-        { to: '/home/teams', label: 'Equipos', needsAdmin: true },
+        // { to: '/home/teams', label: 'Equipos', needsAdmin: true },
         { to: '/home/users', label: 'Usuarios', needsAdmin: true },
-        { to: '/home/profile', label: 'Perfil' },
-        { to: '/home/about', label: 'Acerca de' },
+        // { to: '/home/profile', label: 'Perfil' },
+        // { to: '/home/about', label: 'Acerca de' },
         { to: '/home/planning-poker', label: 'Planning Poker' }
     ];
 
+    const filteredLinks = isAdmin ? links : links.filter(link => !link.needsAdmin);
+    const initialLinks = filteredLinks.slice(0, 4);
+    const extraLinks = filteredLinks.slice(4);
+
     return (
-        <div className={`topnav ${isMobileMenuOpen ? 'responsive' : ''}`}>
-            <div className="icon" onClick={toggleMobileMenu}>
-                <BarsIcon />
-            </div>
-            {links.map(({ to, label, needsAdmin }) => (
-                // Renderizar el enlace solo si no necesita ser administrador o si el usuario es un administrador
-                (!needsAdmin || (needsAdmin && isAdmin)) && (
-                    <Link key={to} to={to} className="nav-link">
-                        {label}
-                    </Link>
-                )
-            ))}
-            <button className="logout-button" onClick={logout}>
-                Salir
-            </button>
-        </div>
+        <nav className="navbar">
+            <ul className="navbar-links">
+                {initialLinks.map(link => (
+                    <li key={link.to}>
+                        <Link
+                            to={link.to}
+                            className={location.pathname === link.to ? 'active' : ''}
+                        >
+                            {link.label}
+                        </Link>
+                    </li>
+                ))}
+                {extraLinks.length > 0 && (
+                    <li className="dropdown">
+                        <button onClick={toggleSubMenu} className="dropdown-button">
+                            <div
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}
+                            >
+                                <ArrowIcon color={arrowColor} />
+                            </div>
+                        </button>
+                        {isSubMenuOpen && (
+                            <ul className="dropdown-menu">
+                                {extraLinks.map(link => (
+                                    <li key={link.to}>
+                                        <Link
+                                            to={link.to}
+                                            className={location.pathname === link.to ? 'active' : ''}
+                                        >
+                                            {link.label}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </li>
+                )}
+            </ul>
+        </nav>
     );
 }
 

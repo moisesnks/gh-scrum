@@ -5,8 +5,8 @@ import React from "react";
 import Render from "./Render";
 
 
-function PlanningTable({ users, onClear }) {
-    return <Render users={users} onClear={onClear} />;
+function PlanningTable({ users, onClear, onReveal, onEncrypt, isRevealed }) {
+    return <Render users={users} onClear={onClear} onReveal={onReveal} onEncrypt={onEncrypt} isRevealed={isRevealed} />;
 }
 
 

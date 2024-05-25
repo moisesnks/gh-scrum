@@ -1,0 +1,129 @@
+/* Chat.css */
+
+/* Estilos para el contenedor de cada mensaje */
+.message {
+    display: flex;
+    gap: 1rem;
+    font-size: 1em;
+}
+
+/* Estilos para el mensaje del usuario actual */
+.message.mine {
+    flex-direction: row-reverse;
+}
+
+/* Estilos para la imagen de perfil del usuario */
+.message-user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.message-user img {
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+}
+
+/* Estilos para el contenido del mensaje */
+.message-content {
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    position: relative;
+    background: #f1f1f1;
+    padding: 10px;
+    font-size: 0.8em;
+    color: #333;
+    max-width: 60%;
+}
+
+.message-content p {
+    /* Reiniciar estilos */
+    margin: 0;
+}
+
+/* Estilos para el contenido del mensaje del usuario actual */
+.message.mine .message-content {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 0px;
+    background: #d1f7d1;
+}
+
+
+.chat {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-sizing: border-box;
+    background: #488fdb;
+    border: 1px solid rgba(39, 116, 198, 0.9);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    padding: 20px;
+    height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 100%;
+    overflow-y: auto;
+    padding: 0 10px;
+}
+
+/* Estilos para la barra de desplazamiento */
+.chat .content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.chat .content::-webkit-scrollbar-thumb {
+    background: rgba(39, 116, 198, 0.9);
+}
+
+.chat .content::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: #f1f1f1;
+}
+
+/* Estilos para el contenedor de la entrada de texto del chat */
+.chat-input {
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100px;
+    position: relative;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+/* Estilos para el botón de emoji */
+.chat-input .emoji-button {
+    position: absolute;
+    left: 10px;
+    cursor: pointer;
+}
+
+/* Estilos para el campo de entrada de texto */
+.chat-input input {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    height: 100%;
+    font-size: 1em;
+    width: 100%;
+    padding: 0 40px;
+    border-radius: 8px;
+    background: #f1f1f1;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Estilos para el botón de enviar */
+.send-button {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}

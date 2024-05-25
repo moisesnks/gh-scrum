@@ -4,8 +4,8 @@ import RenderUser from "./RenderUser";
 import RenderTable from "./RenderTable";
 import RenderResults from "./RenderResults";
 
-function Render({ users }) {
-    const [isRevealed, setIsRevealed] = React.useState(false);
+function Render({ users, onReveal, onEncrypt, isRevealed }) {
+    const [isRevealedCard, setIsRevealedCard] = React.useState(false);
     const [results, setResults] = React.useState(null);
 
     const getMetricas = () => {
@@ -14,25 +14,25 @@ function Render({ users }) {
         const selectedCards = usersFlat.map(user => parseInt(user.selectedCard, 10)).filter(card => !isNaN(card));
         const max = Math.max(...selectedCards);
         const min = Math.min(...selectedCards);
-        const avg = Math.ceil(selectedCards.reduce((acc, card) => acc + card, 0) / selectedCards.length);
-        // La cantidad de usuarios que seleccionaron la misma carta que el avg
+        let avg = Math.ceil(selectedCards.reduce((acc, card) => acc + card, 0) / selectedCards.length);
+        const fibonacci = [1, 2, 3, 5, 8];
+        const closest = fibonacci.reduce((prev, curr) => Math.abs(curr - avg) < Math.abs(prev - avg) ? curr : prev);
+        if (!fibonacci.includes(avg)) {
+            avg = closest;
+        }
         const agreedRate = usersFlat.filter(user => parseInt(user.selectedCard, 10) === avg).length / usersFlat.length * 100;
+
         return { max, min, avg, agreedRate };
     }
 
     const handleReveal = () => {
-        setIsRevealed(true);
+        onReveal();
+        setIsRevealedCard(true);
         setResults(getMetricas());
-    }
-
-    const handleClear = () => {
-        setIsRevealed(false);
-        setResults(null);
     }
 
     return (
         <>
-            <button onClick={handleClear}>Limpiar</button>
             <div
                 style={{ display: "flex", justifyContent: "center" }}
             >
@@ -43,7 +43,7 @@ function Render({ users }) {
                         {/* Top */}
                         <div className="table-module top">
                             {users.top.map((user, index) => (
-                                <RenderUser key={index} user={user} isRevealed={isRevealed} />
+                                <RenderUser key={index} user={user} isRevealed={isRevealedCard} />
                             ))
                             }
 
@@ -54,17 +54,17 @@ function Render({ users }) {
                         {/* Left */}
                         <div className="table-module left">
                             {users.left.map((user, index) => (
-                                <RenderUser key={index} user={user} isRevealed={isRevealed} />
+                                <RenderUser key={index} user={user} isRevealed={isRevealedCard} />
                             ))
                             }
                         </div> {/* Fin de left */}
 
-                        <RenderTable users={Object.values(users).flat()} onReveal={handleReveal} />
+                        <RenderTable users={Object.values(users).flat()} onReveal={handleReveal} onEncrypt={onEncrypt} isRevealed={isRevealed} />
 
                         {/* Right */}
                         <div className="table-module right">
                             {users.right.map((user, index) => (
-                                <RenderUser key={index} user={user} isRevealed={isRevealed} />
+                                <RenderUser key={index} user={user} isRevealed={isRevealedCard} />
                             ))
                             }
                         </div> {/* Fin de right */}
@@ -74,7 +74,7 @@ function Render({ users }) {
                         {/* Bottom */}
                         <div className="table-module bottom">
                             {users.bottom.map((user, index) => (
-                                <RenderUser key={index} user={user} isRevealed={isRevealed} />
+                                <RenderUser key={index} user={user} isRevealed={isRevealedCard} />
                             ))
                             }
                         </div> {/* Fin de bottom */}

@@ -4,6 +4,11 @@ body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin: 0;
     padding: 0;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1920' height='560' preserveAspectRatio='none' viewBox='0 0 1920 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1010%26quot%3b)' fill='none'%3e%3crect width='1920' height='560' x='0' y='0' fill='%230e2a47'%3e%3c/rect%3e%3cpath d='M960 694.73C1068.49 692.35 1171.72 645.06 1245.06 565.06 1315.44 488.28 1344.98 384.04 1340.29 280 1335.84 180.75 1283.92 95.99 1220.54 19.46 1148.12-67.99 1072.85-166.73 960-179.24 838.79-192.7 720.5-131.98 634.42-45.58 548.5 40.64 497.09 158.42 502.5 280 507.7 396.99 575.43 499.16 662.19 577.81 744.34 652.27 849.16 697.15 960 694.73' fill='%231c538e'%3e%3c/path%3e%3cpath d='M960 548.36C1030.2 546.82 1096.99 516.21 1144.45 464.45 1189.99 414.77 1209.11 347.32 1206.07 280 1203.19 215.78 1169.59 160.94 1128.59 111.41 1081.73 54.83 1033.02-9.06 960-17.15 881.57-25.87 805.03 13.43 749.33 69.33 693.73 125.12 660.47 201.33 663.97 280 667.33 355.7 711.16 421.81 767.3 472.7 820.45 520.88 888.28 549.92 960 548.36' fill='%232774c6'%3e%3c/path%3e%3cpath d='M960 401.98C991.91 401.28 1022.27 387.37 1043.84 363.84 1064.54 341.26 1073.23 310.6 1071.85 280 1070.54 250.81 1055.27 225.88 1036.63 203.37 1015.33 177.65 993.19 148.61 960 144.93 924.35 140.97 889.56 158.83 864.24 184.24 838.97 209.6 823.85 244.24 825.44 280 826.97 314.41 846.89 344.46 872.41 367.59 896.57 389.49 927.4 402.69 960 401.98' fill='%23488fdb'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1010'%3e%3crect width='1920' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .h3 {

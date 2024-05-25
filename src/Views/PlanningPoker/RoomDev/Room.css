@@ -1,0 +1,147 @@
+.planning-poker {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    height: 100%;
+}
+
+.planning-poker .side {
+    width: 20%;
+    padding: 0 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.planning-poker .room {
+    position: relative;
+    height: 100%;
+    width: 80%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(39, 116, 198, 0.9);
+    border: 1px solid rgba(35, 106, 182, 0.5);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    padding-bottom: 10vh;
+}
+
+.planning-poker .room .cartas-container {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.planning-poker .room .cartas-container .confirm-button {
+    width: 50%;
+    padding: 10px;
+    background: #f1c40f;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.planning-poker .room .cartas-container .confirm-button:hover {
+    background: #f39c12;
+}
+
+.planning-poker .room .cartas-container .confirm-button:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.planning-poker .room .alert {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 0 0 8px 8px;
+    transition: all 0.5s;
+}
+
+
+.alert.info {
+    background: #27ae60;
+}
+
+.alert.error {
+    background: #c0392b;
+}
+
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 90%;
+    height: 100%;
+    padding: 10px 20px;
+}
+
+.admin-container .waiting-text,
+.reveal-button {
+    color: white;
+    font-size: 2em;
+    font-weight: bold;
+    background: #2980b9;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.reveal-button {
+    cursor: pointer;
+    transition: 0.5s;
+    border: none;
+}
+
+.waiting-text {
+    font-size: 1rem;
+    color: #333;
+}
+
+.dots {
+    display: inline-block;
+    width: 1em;
+    text-align: left;
+}
+
+.dots::after {
+    content: '';
+    animation: ellipsis 1.5s infinite;
+}
+
+@keyframes ellipsis {
+    0% {
+        content: '';
+    }
+
+    33% {
+        content: '.';
+    }
+
+    66% {
+        content: '..';
+    }
+
+    100% {
+        content: '...';
+    }
+}
