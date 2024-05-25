@@ -15,7 +15,6 @@ import PlannigPokerPage from "./Views/PlanningPoker";
 import RoomPage from "./Views/PlanningPoker/Room";
 import CreateRoomPage from "./Views/PlanningPoker/CreateRoom";
 import JoinRoomPage from "./Views/PlanningPoker/JoinRoom";
-import RoomPageDev from "./Views/PlanningPoker/RoomDev";
 
 
 
@@ -28,7 +27,7 @@ const router = createBrowserRouter(
       >
         <Route index element={<LoginPage />} />
         <Route path="/home" element={<ProtectedLayout />}>
-          <Route index element={<RoomPageDev />} />
+          <Route index element={<HomePage />} />
           <Route path="task/:id" element={<TaskPage />} />
           <Route path="form" element={<FormPage />} />
           <Route path="users" element={<UsersPage />} />

@@ -33,66 +33,67 @@ const JoinRoom = () => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
     const [roomName, setRoomName] = useState('');
+    const [connected, setConnected] = useState(false);
 
     useEffect(() => {
-        const newSocket = io('http://localhost:5000', {
-            auth: { uid: user.uid, name: user.displayName }
-        });
+        // Establece la conexión con el servidor de Socket.IO
+        const newSocket = io('http://localhost:4000'); // Cambia a la URL de tu servidor si es diferente
+        setSocket(newSocket);
 
         newSocket.on('connect', () => {
-            setSocket(newSocket);
-
-            // Unirse a la sala correspondiente al conectarse
-            newSocket.emit('joinRoom', roomName);
+            setConnected(true);
         });
 
-        // Manejo del evento 'roomInfo' para actualizar el estado con la información de la sala
-        newSocket.on('roomInfo', (info) => {
-            setRoomInfo(info.users);
+        // Maneja los eventos de error
+        newSocket.on('connect_error', () => {
+            setError('No se pudo conectar con el servidor');
+        });
+
+        newSocket.on('error', (error) => {
+            setError(error.message);
         });
 
         return () => {
-            setSocket(null);
-            newSocket.disconnect();
-        };
-    }, [user.uid]);
-
+            newSocket.off('connect');
+            newSocket.off('connect_error');
+            newSocket.off('error');
+        }
+    }, [setSocket]);
 
     const handleJoinRoom = (e) => {
         e.preventDefault();
         if (roomName.trim() !== '') {
-            socket.emit('joinRoom', roomName);
-            if (error === '') {
-                navigate(`/home/planning-poker/room/${roomName}`);
-            }
-
+            navigate(`/home/planning-poker/room/${roomName}`);
         } else {
             alert('Por favor ingrese un nombre para la sala.');
         }
     };
 
-    return (
-        <>
-            {error ? (
-                <Container>
-                    <Error>{error}</Error>
-                    <ErrorButton onClick={() => setError('')}>Close</ErrorButton>
-                </Container>
+    if (error) {
+        return (
+            <Container>
+                <Error>{error}</Error>
+                <ErrorButton onClick={() => setError('')}>Cerrar</ErrorButton>
+            </Container>
+        );
+    }
 
-            ) : (
-                <Container>
-                    <Form onSubmit={handleJoinRoom}>
-                        <Input
-                            type="text"
-                            placeholder="Room Name"
-                            value={roomName}
-                            onChange={(e) => setRoomName(e.target.value)}
-                        />
-                        <Button type="submit">Join Room</Button>
-                    </Form>
-                </Container>
-            )}
-        </>
+    if (!connected) {
+        return <Container>Cargando...</Container>;
+    }
+
+    return (
+        <Container>
+            <Form onSubmit={handleJoinRoom}>
+                <Input
+                    type="text"
+                    placeholder="Nombre de la sala"
+                    value={roomName}
+                    onChange={(e) => setRoomName(e.target.value)}
+                />
+                <Button type="submit">Unirse a la sala</Button>
+            </Form>
+        </Container>
     );
 };
 

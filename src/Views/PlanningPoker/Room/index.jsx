@@ -1,308 +1,231 @@
-// Path: src/Views/PlanningPoker/Room/index.jsx
-import React, { useState, useEffect } from "react";
-import PlanningTable from "../../../Components/PlanningTable";
+import React, { useState, useEffect } from 'react';
+import { io } from 'socket.io-client';
 
-const users = [
-    { id: 1, name: 'John Doe', role: 'Participant', selectedCard: '1' },
-    { id: 2, name: 'Jane Doe', role: 'Participant', selectedCard: '2' },
-    { id: 3, name: 'John Smith', role: 'Participant', selectedCard: '2' },
-    { id: 4, name: 'Jane Smith', role: 'Participant', selectedCard: '2' },
-    { id: 5, name: 'John Johnson', role: 'Participant', selectedCard: '3' },
-    { id: 6, name: 'Jane Johnson', role: 'Participant', selectedCard: '1' },
-    { id: 7, name: 'John Brown', role: 'Participant', selectedCard: '2' },
-    { id: 8, name: 'Jane Brown', role: 'Participant', selectedCard: '1' },
-];
+import UsersList from '../../../Components/UsersList/index.jsx';
+import UsersVoted from '../../../Components/UsersVoted/index.jsx';
+import Cartas from '../../../Components/Cartas/index.jsx';
+import Chat from '../../../Components/Chat/index.jsx';
+import Topico, { ChangeTopicModal } from '../../../Components/Topico/index.jsx';
+import Resultados from '../../../Components/Resultados/index.jsx';
 
+import { useAuth } from '../../../Hooks/useAuth';
 
-const distributeUsers = (users) => {
-    // Distribute users into 4 groups, top, right, bottom, left
-    // dinamically based on the number of users
-    const top = [];
-    const right = [];
-    const bottom = [];
-    const left = [];
-
-    users.forEach((user, index) => {
-        if (index < 3) {
-            top.push(user);
-        } else if (index < 5) {
-            right.push(user);
-        } else if (index < 7) {
-            bottom.push(user);
-        } else {
-            left.push(user);
-        }
-    });
-
-    const obj = {
-        top,
-        right,
-        bottom,
-        left,
-    };
-
-    return obj;
-}
-
-import styled from "styled-components";
-
-const Card = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    height: 150px;
-    border-radius: 5px;
-    background-color: ${({ selected }) => selected ? '#ffc107' : '#f8f9fa'};
-    color: ${({ selected }) => selected ? '#212529' : '#5a6268'};
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin: 0 5px;
-    &:hover {
-        background-color: ${({ selected }) => selected ? '#ffc107' : '#e9ecef'};
-        transform: translateY(-5px);
-    }
-`;
-
-const ListCards = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
-`;
-
-const SelectChoice = ({ onSelect, initialSelectedCard = '' }) => {
-
-
-    const [selectedCard, setSelectedCard] = useState(initialSelectedCard);
-
-
-    const handleSelect = (card) => {
-        // Si la misma carta se selecciona dos veces seguidas, deseleccionarla
-        if (selectedCard === card) {
-            setSelectedCard(null);
-            onSelect(null); // Emitir null para indicar que la carta se ha deseleccionado
-        } else {
-            setSelectedCard(card);
-            onSelect(card);
-        }
-    };
-
-    return (
-        <ListCards>
-            <Card selected={selectedCard === '1'} onClick={() => handleSelect('1')}>1</Card>
-            <Card selected={selectedCard === '2'} onClick={() => handleSelect('2')}>2</Card>
-            <Card selected={selectedCard === '3'} onClick={() => handleSelect('3')}>3</Card>
-            <Card selected={selectedCard === '5'} onClick={() => handleSelect('5')}>5</Card>
-            <Card selected={selectedCard === '8'} onClick={() => handleSelect('8')}>8</Card>
-        </ListCards>
-    );
-};
-
-
-const StatusIndicator = styled.span`
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-left: 5px;
-    background-color: ${props => (props.$isOnline ? 'green' : 'red')};
-`;
-
-const ListItem = styled.li`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 8px 0;
-`;
-
-const UserItem = ({ user }) => {
-    return (
-        <ListItem>
-            <span>{user.name}</span>
-            <StatusIndicator $isOnline={user.online} />
-        </ListItem>
-    );
-};
-
-const List = styled.ul`
-    list-style: none;
-    padding: 0;
-`;
-
-const UsersList = ({ users }) => {
-    return (
-        <div>
-            <h2>Usuarios</h2>
-            <List>
-                {users.map((user) => (
-                    <UserItem user={user} key={user.uid} />
-                ))}
-            </List>
-        </div>
-    );
-};
-
-// Alerta es un div estilizado que muestra un mensaje
-const Alert = styled.div`
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 1rem;
-`;
-
-const AlertError = styled(Alert)`
-    background-color: #f8d7da;
-    color: #721c24;
-`;
-
-// Message es una función que retorna un Alert con un mensaje y dura 2 segundos en pantalla y luego desaparece
-const Message = ({ message, setInfoMessage }) => {
-    const [show, setShow] = useState(true);
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setShow(false);
-            setInfoMessage(''); // Limpia el mensaje después de que se oculta
-        }, 2000);
-
-        return () => clearTimeout(timer); // Limpia el timer al desmontar
-    }, []);
-
-    return show ? <Alert>{message}</Alert> : null;
-};
-
-const Error = ({ message }) => {
-    const [show, setShow] = useState(true);
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setShow(false);
-        }, 2000);
-
-        return () => clearTimeout(timer);
-    }, []);
-
-    return show ? <AlertError>{message}</AlertError> : null;
-};
-
-
-
-import { useAuth } from "../../../Hooks/useAuth";
-import { io } from "socket.io-client";
-import { Spinner } from "theme-ui";
+import './Room.css';
 
 const Room = () => {
     const { user } = useAuth();
-    const [socket, setSocket] = useState(null);
-    const [roomInfo, setRoomInfo] = useState([]);
     const roomName = window.location.pathname.split('/').pop();
+    const [socket, setSocket] = useState(null);
     const [users, setUsers] = useState([]);
-    const [selectedCard, setSelectedCard] = useState(null);
-    const [infoMessage, setInfoMessage] = useState('');
-    const [error, setError] = useState('');
-    const [isRevealed, setIsRevealed] = useState(false);
-
-
-    useEffect(() => {
-        if (!user) return null;
-
-        const newSocket = io('http://localhost:5000', {
-            auth: { uid: user.uid, name: user.displayName }
-        });
-
-        newSocket.on('connect', () => {
-            setSocket(newSocket);
-            newSocket.emit('joinRoom', { roomName });
-
-            newSocket.emit('getChoice', roomName);
-
-            newSocket.on('choice', (choice) => {
-                setSelectedCard(choice.selectedCard);
-            });
-
-            newSocket.emit('getUsers', roomName);
-
-
-            newSocket.on('votesRevealed', (info) => {
-                console.log("Se han revelado los votos", info);
-                setUsers(info.users);
-                setIsRevealed(true);
-            });
-
-            newSocket.on('votesEncrypted', (info) => {
-                console.log("Se han encriptado los votos", info);
-                setUsers(info.users);
-            });
-
-            newSocket.on('message', (info) => {
-                console.log(info.message);
-                setInfoMessage(info.message);
-            });
-
-            newSocket.on('roomError', (error) => {
-                console.error(error);
-                setError(error);
-            });
-
-            newSocket.on('cardVoted', (info) => {
-                console.log(info.message);
-                setInfoMessage(info.message);
-            });
-
-        });
-        return () => {
-            newSocket.emit('leaveRoom', { roomName });
-            newSocket.disconnect();
-            setSocket(null);
-        };
-    }, []);
-
+    const [messages, setMessages] = useState([]);
+    const [topic, setTopic] = useState('');
+    const [isSelected, setIsSelected] = useState(false);
+    const [currentUser, setCurrentUser] = useState(user);
+    const [isAdmin, setIsAdmin] = useState(user.role === 'admin');
+    const [roomAlert, setRoomAlert] = useState("");
+    const [showAlert, setShowAlert] = useState(false);
+    const [error, setError] = useState(null);
+    const [showError, setShowError] = useState(false);
+    const [todosVotaron, setTodosVotaron] = useState(false);
+    const [results, setResults] = useState(null);
+    const [showResults, setShowResults] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
-        if (!socket) return;
+        const newSocket = io('http://localhost:4000'); // Cambia a la URL de tu servidor si es diferente
+        setSocket(newSocket);
 
-        socket.emit('getRoomInfo', roomName);
+        // Unirse a la sala
+        newSocket.emit('joinRoom', { room: roomName, user });
 
-        socket.on('roomInfo', (info) => {
-            setUsers(info.users);
+        // Manejar eventos desde el servidor
+        newSocket.on('init', ({ users, messages, topic }) => {
+            setUsers(users);
+            setMessages(messages);
+            setTopic(topic);
+            const currentUser = users.find(u => u.uid === user.uid);
+            setCurrentUser(currentUser);
+            setIsAdmin(currentUser.role === 'admin');
+            newSocket.emit('getVote', { room: roomName, userId: currentUser.uid })
         });
 
-        return () => {
-            socket.off('roomInfo');
-        };
-    }, [infoMessage]);
 
-    const handleRevealVotes = () => {
+
+        newSocket.on('updateUsers', setUsers);
+        newSocket.on('updateMessages', setMessages);
+        newSocket.on('newTopic', setTopic);
+        newSocket.on('results', ({ users, results }) => {
+            setUsers(users);
+            setResults(results);
+            setShowResults(true);
+        });
+
+        newSocket.on('receiveVote', (vote) => {
+            setCurrentUser(prevUser => ({ ...prevUser, vote }));
+        });
+
+        newSocket.on('updateVotes', votes => {
+            setUsers(prevUsers =>
+                prevUsers.map(user => ({
+                    ...user,
+                    vote: votes[user.uid] ? votes[user.uid] : user.vote
+                }))
+            );
+        });
+
+        newSocket.on('resetRoom', ({ users, messages }) => {
+            setUsers(users);
+            setMessages(messages);
+            setTopic('');
+            setResults(null);
+            setShowResults(false);
+            setRoomAlert('Sala reiniciada correctamente');
+        });
+
+        newSocket.on('error', (error) => {
+            setError(error.message);
+        });
+
+        return () => newSocket.close();
+    }, [roomName, user]);
+
+    useEffect(() => {
+        if (currentUser.vote !== "") {
+            setIsSelected(true);
+        } else {
+            setIsSelected(false);
+        }
+    }, [currentUser.vote]);
+
+    useEffect(() => {
+        if (roomAlert !== "") {
+            setShowAlert(true);
+            setTimeout(() => {
+                setShowAlert(false);
+                setRoomAlert("");
+            }, 3000);
+        }
+    }, [roomAlert]);
+
+    useEffect(() => {
+        if (error !== null) {
+            setShowError(true);
+            setTimeout(() => {
+                setShowError(false);
+                setError(null);
+            }, 3000);
+        }
+    }, [error]);
+
+    useEffect(() => {
+        const allVotedWithoutAdmin = users.filter(u => u.role !== 'admin').every(u => u.vote !== "");
+        setTodosVotaron(allVotedWithoutAdmin);
+
+    }, [users]);
+
+    useEffect(() => {
+        if (results && results.avg === 0 && results.max === 0 && results.min === 0 && results.reset === true) {
+            console.log("Se resetearon los resultados");
+            setShowResults(false);
+        } else if (results && results.avg !== 0 && results.max !== 0 && results.min !== 0) {
+            setShowResults(true);
+        }
+    }, [results]);
+
+    const handleClickCard = (card) => {
+        if (currentUser.vote === card) {
+            setCurrentUser({ ...currentUser, vote: "" });
+            socket.emit('vote', { room: roomName, userId: currentUser.uid, vote: "" });
+        } else {
+            setCurrentUser({ ...currentUser, vote: card });
+        }
+    };
+
+    const handleSendVote = () => {
+        socket.emit('vote', { room: roomName, userId: currentUser.uid, vote: currentUser.vote });
+        setRoomAlert('Voto enviado correctamente');
+    };
+
+    const handleReveal = () => {
         socket.emit('revealVotes', roomName);
     };
 
-    const handleEncryptVotes = () => {
-        socket.emit('encryptVotes', roomName);
-    }
-
-
-    const handleSelectCard = (card) => {
-        const newSelectedCard = selectedCard === card ? null : card;
-        setSelectedCard(newSelectedCard);
-        socket.emit('vote', { roomName, selectedCard: newSelectedCard });
+    const handleReset = () => {
+        socket.emit('resetRoom', { room: roomName });
+        setShowModal(true);
     };
 
-    if (!users) return <Spinner text="Cargando..." />
+    const handleSendMessage = (message) => {
+        const newMessage = { content: message, user: currentUser };
+        socket.emit('newMessage', { room: roomName, message: newMessage });
+    };
 
     return (
-        <div className="container">
-            <h1>Planning Poker Room</h1>
-            <h2>Hola, {user?.displayName}</h2>
-            {infoMessage && <Message message={infoMessage} setInfoMessage={setInfoMessage} />}
-            {error && <Error message={error.message} />}
-            <SelectChoice onSelect={handleSelectCard} initialSelectedCard={selectedCard} />
-            {users && <UsersList users={users} />}
-            {users && <PlanningTable users={distributeUsers(users)} onReveal={handleRevealVotes} onEncrypt={handleEncryptVotes} isRevealed={isRevealed} />}
+        <div className="planning-poker">
+            <aside className='side'>
+                <UsersList users={users} />
+                <Chat messages={messages} currentUser={currentUser} onSendMessage={handleSendMessage} />
+            </aside>
+            <main className='room'>
+                {showModal ? (
+                    <ChangeTopicModal
+                        topic={topic}
+                        setTopic={(newTopic) => {
+                            setTopic(newTopic);
+                            socket.emit('changeTopic', { room: roomName, newTopic });
+                        }}
+                        setShowModal={setShowModal}
+                    />
+
+                ) : (
+                    <>
+                        {!showResults ? (
+                            <>
+                                <Topico topic={topic} setTopic={(newTopic) => {
+                                    setTopic(newTopic);
+                                    socket.emit('changeTopic', { room: roomName, newTopic });
+                                }} isAdmin={isAdmin} />
+                                <UsersVoted users={users} />
+                                {isAdmin && (
+                                    <div className="admin-container">
+                                        {todosVotaron ? (
+                                            <button className='reveal-button' onClick={handleReveal}>
+                                                Revelar votos
+                                            </button>
+                                        ) : (
+                                            <span className='waiting-text'>
+                                                Esperando que todos voten<span className='dots'></span>
+                                            </span>
+                                        )}
+                                    </div>
+                                )}
+                                {!isAdmin && !showResults && (
+                                    <div className="cartas-container">
+                                        <Cartas initialCard={currentUser.vote} onClick={handleClickCard} />
+                                        <button className='confirm-button' onClick={handleSendVote} disabled={!isSelected}>
+                                            Confirmar voto
+                                        </button>
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+                            <div className="final">
+                                <h2>Se han revelado las cartas</h2>
+                                {isAdmin && (
+                                    <button className='reset-button' onClick={handleReset}>
+                                        Reiniciar sala
+                                    </button>
+                                )}
+                            </div>
+                        )}
+                        {showAlert && <div className='alert info'>{roomAlert}</div>}
+                        {showError && <div className='alert error'>{error}</div>}
+                        {showResults && <Resultados results={results} />}
+                    </>
+                )}
+            </main>
         </div>
     );
-}
+};
 
 export default Room;

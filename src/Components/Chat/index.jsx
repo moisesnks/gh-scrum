@@ -57,7 +57,7 @@ function EmojiButton({ onInputChange }) {
 
 function ChatMessage({ message, isCurrentUser }) {
     return (
-        <div className={`message ${isCurrentUser ? 'mine' : 'yours'}`}>
+        <div key={message._id} className={`message ${isCurrentUser ? 'mine' : 'yours'}`}>
             <div className="message-user">
                 <img src={message.user.photoURL} alt={message.user.displayName} />
             </div>
@@ -68,7 +68,7 @@ function ChatMessage({ message, isCurrentUser }) {
     );
 }
 
-function Chat({ messages, currentUser }) {
+function Chat({ messages, currentUser, onSendMessage }) {
     const chatRef = useRef(null);
     const inputRef = useRef(null);
     const [message, setMessage] = useState('');
@@ -83,6 +83,7 @@ function Chat({ messages, currentUser }) {
     const handleSendMessage = () => {
         // Lógica para enviar el mensaje
         console.log('Mensaje enviado:', message);
+        onSendMessage(message);
         setMessage('');
     };
 
@@ -106,7 +107,7 @@ function Chat({ messages, currentUser }) {
                 <div className="content" ref={chatRef}>
                     {messages.map((message) => (
                         <ChatMessage
-                            key={message.id}
+                            key={message._id}
                             message={message}
                             isCurrentUser={message.user.uid === currentUser.uid}
                         />

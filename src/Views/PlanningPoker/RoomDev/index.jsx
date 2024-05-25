@@ -49,7 +49,7 @@ function Room() {
 
     const [topic, setTopic] = useState('Un microservicio para obtener en tiempo real la información de las monedas digitales más populares');
     const [isSelected, setIsSelected] = useState(false);
-    const [currentUser, setCurrentUser] = useState({ ...users[1] });
+    const [currentUser, setCurrentUser] = useState({ ...users[0] });
     const [isAdmin, setIsAdmin] = useState(currentUser.role === 'admin' ? true : false);
     const [roomAlert, setRoomAlert] = useState("");
     const [showAlert, setShowAlert] = useState(false);
@@ -155,11 +155,19 @@ function Room() {
         setShowModal(true);
     }
 
+    const handleSendMessage = (message) => {
+        // Lógica para enviar el mensaje
+        console.log('Mensaje del chat enviado al servidor:',
+            message);
+        // console.log : {content: "Hola", user: {displayName: "Simon Carrasco", photoURL: "https://avatars.githubusercontent.com/u/130523104?v=4", online: true, uid: "1", vote: "5"}}
+    }
+
+
     return (
         <div className="planning-poker">
             <aside className='side'>
                 <UsersList users={users} />
-                <Chat messages={messages} currentUser={currentUser} />
+                <Chat messages={messages} currentUser={currentUser} onSendMessage={handleSendMessage} />
             </aside>
             <main className='room'>
                 {showModal ? (
@@ -184,7 +192,12 @@ function Room() {
                                     </div>
                                 )}
                                 {!isAdmin && !showResults && (
-                                    <Cartas handleClickCard={handleClickCard} isSelected={isSelected} />
+                                    <div className="cartas-container">
+                                        <Cartas initialCard={currentUser.vote} onClick={handleClickCard} />
+                                        <button className='confirm-button' onClick={handleSendVote} disabled={!isSelected}>
+                                            Confirmar voto
+                                        </button>
+                                    </div>
                                 )}
                             </>
                         ) : (

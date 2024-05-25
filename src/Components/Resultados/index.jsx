@@ -4,6 +4,7 @@ import './Resultados.css';
 import CircleProgress from '../CircleProgress/index.jsx';
 
 function Resultados({ results }) {
+    console.log(results);
 
     return (
         <div className="alert stats">
