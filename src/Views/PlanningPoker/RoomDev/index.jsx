@@ -111,6 +111,7 @@ function Room() {
     // useEffect que escucha cambios en results, para cambiar el estado de showResults
     useEffect(() => {
         if (results) {
+            console.log('Se han recibido los resultados:', results);
             setShowResults(true);
         } else if (results && results.reset) {
             setShowResults(false);

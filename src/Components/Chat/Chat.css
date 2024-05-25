@@ -101,7 +101,7 @@
 }
 
 /* Estilos para el botón de emoji */
-.chat-input .emoji-button {
+.chat-input .emoji-button-wrapper {
     position: absolute;
     left: 10px;
     cursor: pointer;

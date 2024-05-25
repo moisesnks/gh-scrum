@@ -1,13 +1,12 @@
-// Chat.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import './Chat.css'; // Asegúrate de importar los estilos CSS
 import { ArrowSendIcon } from '../../Icons';
 
 function EmojiDropdown({ onClick }) {
-    // los emojis son clickeables y se devuelven al emojiButton
     const handleEmojiClick = (emoji) => {
         onClick(emoji);
-    }
+    };
+
     return (
         <div className='emoji-dropdown'>
             <div onClick={() => handleEmojiClick('😃')}>😃</div>
@@ -20,17 +19,37 @@ function EmojiDropdown({ onClick }) {
 }
 
 function EmojiButton({ onInputChange }) {
-    // usa el estado para mostrar/ocultar el dropdown
     const [showDropdown, setShowDropdown] = useState(false);
+    const dropdownRef = useRef(null);
 
     const handleEmojiClick = (emoji) => {
-        setShowDropdown(false);
         onInputChange(emoji);
-    }
+        setShowDropdown(true); // Mantenemos el dropdown abierto al seleccionar un emoji
+    };
+
+    const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setShowDropdown(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+    const toggleDropdown = (e) => {
+        e.stopPropagation(); // Evita que el clic se propague y se cierre el dropdown
+        setShowDropdown(!showDropdown);
+    };
 
     return (
-        <div className='emoji-button' onClick={() => setShowDropdown(!showDropdown)}>
-            😃
+        <div className='emoji-button-wrapper' ref={dropdownRef}>
+            <div className='emoji-button' onClick={toggleDropdown}>
+                😃
+            </div>
             {showDropdown && <EmojiDropdown onClick={handleEmojiClick} />}
         </div>
     );
@@ -51,6 +70,7 @@ function ChatMessage({ message, isCurrentUser }) {
 
 function Chat({ messages, currentUser }) {
     const chatRef = useRef(null);
+    const inputRef = useRef(null);
     const [message, setMessage] = useState('');
 
     useEffect(() => {
@@ -72,9 +92,16 @@ function Chat({ messages, currentUser }) {
         }
     };
 
+    const handleInputChange = (value) => {
+        setMessage(message + value);
+        if (inputRef.current) {
+            inputRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <>
-            <div className="chat" >
+            <div className="chat">
                 <span className='h2'> Chat </span>
                 <div className="content" ref={chatRef}>
                     {messages.map((message) => (
@@ -88,13 +115,14 @@ function Chat({ messages, currentUser }) {
             </div>
 
             <div className="chat-input">
-                <EmojiButton onInputChange={(emoji) => setMessage(message + emoji)} />
+                <EmojiButton onInputChange={handleInputChange} />
                 <input
                     type="text"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Escribe un mensaje..."
                     onKeyDown={handleKeyDown}
+                    ref={inputRef}
                 />
                 <div className='send-button' onClick={handleSendMessage}>
                     <ArrowSendIcon size={14} />
