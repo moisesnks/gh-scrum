@@ -86,3 +86,24 @@ export function BarsIcon({ color = "#677380" }) {
         </svg>
     );
 }
+
+
+export function ArrowIcon({ color = "#CCCCCC" }) {
+    return (
+        <svg width="29" height="16" viewBox="0 0 29 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M26.5 2L14.5 14L2.5 2" stroke={color} strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    )
+}
+
+export function ArrowSendIcon({ color = "#167FFC", size = 24 }) {
+    const height = size;
+    const width = size * 1.2;
+    return (
+        <svg width={width} height={height} viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3.98682 5L0.986816 1.25L10.7368 5L0.986816 8.75L3.98682 5Z" fill="#167FFC" />
+            <path d="M0.986994 9.12499C0.869806 9.12499 0.756481 9.07005 0.684144 8.97154C0.584169 8.83459 0.588181 8.6478 0.694044 8.51562L3.50654 4.99999L0.694044 1.48437C0.588181 1.35218 0.584169 1.16539 0.684144 1.02844C0.783931 0.892204 0.963181 0.839104 1.12139 0.899892L10.8714 4.64989C11.0162 4.70554 11.1118 4.8447 11.1118 4.99999C11.1118 5.15528 11.0162 5.29444 10.8714 5.35009L1.12139 9.10009C1.07744 9.11693 1.03184 9.12499 0.986994 9.12499ZM2.14477 2.09704L4.27961 4.76562C4.38929 4.90257 4.38929 5.09742 4.27961 5.23437L2.14477 7.90294L9.69221 4.99999L2.14477 2.09704Z" fill={color} />
+        </svg>
+
+    )
+}

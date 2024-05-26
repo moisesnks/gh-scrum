@@ -1,0 +1,27 @@
+.users-voted {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.users-voted .voted,
+.users-voted .not-voted {
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    color: #2c3e50;
+    font-weight: bold;
+    font-size: 1em;
+    margin: 5px;
+}
+
+.voted {
+    box-shadow: 0px 0px 5px 0px yellow;
+}
+
+.users-voted img {
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+}

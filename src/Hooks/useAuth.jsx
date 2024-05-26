@@ -95,8 +95,21 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const getName = () => {
+        let name = user.displayName;
+        while (!name) {
+            name = prompt('Please enter your name');
+            if (name) {
+                updateDisplayName(name);
+            } else {
+                alert('You must enter a name');
+            }
+        }
+        return name;
+    };
+
     return (
-        <AuthContext.Provider value={{ user, loading, register, login, logout, updateDisplayName, token, isAdmin }}>
+        <AuthContext.Provider value={{ user, loading, register, login, logout, updateDisplayName, token, isAdmin, getName }}>
             {children}
         </AuthContext.Provider>
     );

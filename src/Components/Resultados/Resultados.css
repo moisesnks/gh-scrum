@@ -1,0 +1,37 @@
+.results-container {
+    padding: 10px;
+}
+
+.results-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.results-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.results-content-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border: 1px solid #2774C6;
+    border-radius: 0.5rem;
+    background-color: #2774C6;
+}
+
+.results-content-item-title {
+    font-weight: bold;
+}
+
+.results-content-item-value {
+    font-size: 1.2rem;
+}
+
+.alert.stats {
+    background: #1C538E;
+}
