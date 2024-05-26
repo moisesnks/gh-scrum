@@ -72,7 +72,7 @@ const CreateRoom = () => {
 
     useEffect(() => {
         // Establece la conexión con el servidor de Socket.IO
-        const newSocket = io('http://localhost:4000'); // Cambia a la URL de tu servidor si es diferente
+        const newSocket = io('https://ztwwr726-4000.brs.devtunnels.ms'); // Cambia a la URL de tu servidor si es diferente
         setSocket(newSocket);
 
         newSocket.on('connect', () => {

@@ -32,7 +32,7 @@ const Room = () => {
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
-        const newSocket = io('http://localhost:4000'); // Cambia a la URL de tu servidor si es diferente
+        const newSocket = io('https://ztwwr726-4000.brs.devtunnels.ms'); // Cambia a la URL de tu servidor si es diferente
         setSocket(newSocket);
 
         // Unirse a la sala
