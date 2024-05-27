@@ -15,6 +15,7 @@ import PlannigPokerPage from "./Views/PlanningPoker";
 import RoomPage from "./Views/PlanningPoker/Room";
 import CreateRoomPage from "./Views/PlanningPoker/CreateRoom";
 import JoinRoomPage from "./Views/PlanningPoker/JoinRoom";
+import AsistenciaPage from "./Views/Asistencia/index.jsx";
 
 
 
@@ -27,7 +28,7 @@ const router = createBrowserRouter(
       >
         <Route index element={<LoginPage />} />
         <Route path="/home" element={<ProtectedLayout />}>
-          <Route index element={<HomePage />} />
+          <Route index element={<AsistenciaPage />} />
           <Route path="task/:id" element={<TaskPage />} />
           <Route path="form" element={<FormPage />} />
           <Route path="users" element={<UsersPage />} />

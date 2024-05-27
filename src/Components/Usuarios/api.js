@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useAuth } from '../../Hooks/useAuth';
-const apiUrl = 'https://backend-lumotareas.vercel.app/users';
+const apiUrl = 'http://localhost:3000/users';
 
 
 const useUserApi = () => {
@@ -20,32 +20,21 @@ const useUserApi = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const generatePasswordFromEmailAndRut = (email, rut) => {
-        const emailPrefix = email.split('@')[0]; // Obtiene la parte antes del '@' del correo
-        const rutDigits = rut.replace('-', '').slice(-3); // Obtiene los últimos 3 dígitos del RUT sin guion
 
-        // Combina partes del correo y del RUT para crear una contraseña
-        const password = `${emailPrefix}${rutDigits}`;
-
-        return password;
-    };
-
-    const addUser = async (user) => {
+    const addUser = async (data) => {
         try {
             setLoading(true);
 
-            const password = generatePasswordFromEmailAndRut(user.email, user.rut);
-            const tareasReference = [];
             const response = await fetchWithAuthorization(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ ...user, password, tareasReference }),
+                body: JSON.stringify(data),
             });
 
             if (!response.ok) {
-                throw new Error('Error al añadir el usuario');
+                throw new Error('Error al crear el usuario');
             }
 
             setLoading(false);
@@ -115,9 +104,11 @@ const useUserApi = () => {
             }
 
             setLoading(false);
+            return true;
         } catch (error) {
             setError(error.message);
             setLoading(false);
+            return false;
         }
     };
 

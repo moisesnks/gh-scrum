@@ -6,7 +6,7 @@ import {
     FormName,
     FormRol,
     FormCargo,
-    FormHoras,
+    FormCapacidad,
     FormTeam,
 } from '../FormField';
 
@@ -84,28 +84,24 @@ const UserCard = ({ user, isEditable, isSelected, onSelect, updateUser }) => {
                 </div>
                 <div className="hr"></div>
                 <div className="row">
-                    <span>Rol: {editMode ? (
-                        <FormRol editedUser={editedUser} handleFieldChange={handleFieldChange} />
-                    ) : (
-                        editedUser.rol || 'No especificado'
-                    )}</span>
+
                     <span>Cargo: {editMode ? (
                         <FormCargo editedUser={editedUser} handleFieldChange={handleFieldChange} />
 
                     ) : (
                         editedUser.cargo || 'No especificado'
                     )}</span>
-                    <span>Horas: {editMode ? (
-                        <FormHoras editedUser={editedUser} handleFieldChange={handleFieldChange} />
+                    <span>Capacidad: {editMode ? (
+                        <FormCapacidad editedUser={editedUser} handleFieldChange={handleFieldChange} />
 
                     ) : (
-                        editedUser.horas
+                        editedUser.capacidad
                     )}</span>
                     <span>Equipo: {editMode ? (
                         <FormTeam editedUser={editedUser} handleFieldChange={handleFieldChange} />
 
                     ) : (
-                        editedUser.team || 'No especificado'
+                        editedUser.equipo || 'No especificado'
                     )}</span>
                 </div>
                 {editMode && (
