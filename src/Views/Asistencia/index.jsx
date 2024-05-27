@@ -87,7 +87,7 @@ const Asistencia = () => {
             .catch(error => {
                 console.error('Error:', error);
             });
-        window.location.reload();
+        // window.location.reload();
     };
 
     const handleCeremonyChange = (date, value) => {
@@ -113,7 +113,7 @@ const Asistencia = () => {
             .catch(error => {
                 console.error('Error:', error);
             });
-        window.location.reload();
+        // window.location.reload();
 
     };
 

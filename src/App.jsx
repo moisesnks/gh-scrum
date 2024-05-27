@@ -28,7 +28,7 @@ const router = createBrowserRouter(
       >
         <Route index element={<LoginPage />} />
         <Route path="/home" element={<ProtectedLayout />}>
-          <Route index element={<AsistenciaPage />} />
+          <Route index element={<MetricasPage />} />
           <Route path="task/:id" element={<TaskPage />} />
           <Route path="form" element={<FormPage />} />
           <Route path="users" element={<UsersPage />} />
