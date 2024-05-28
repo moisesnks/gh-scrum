@@ -28,7 +28,7 @@ const router = createBrowserRouter(
       >
         <Route index element={<LoginPage />} />
         <Route path="/home" element={<ProtectedLayout />}>
-          <Route index element={<AsistenciaPage />} />
+          <Route index element={<HomePage />} />
           <Route path="task/:id" element={<TaskPage />} />
           <Route path="form" element={<FormPage />} />
           <Route path="users" element={<UsersPage />} />
@@ -38,6 +38,7 @@ const router = createBrowserRouter(
           <Route path="planning-poker/room/:id" element={<RoomPage />} />
           <Route path="planning-poker/create-room" element={<CreateRoomPage />} />
           <Route path="planning-poker/join-room" element={<JoinRoomPage />} />
+          <Route path="asistencia" element={<AsistenciaPage />} />
         </Route>
       </Route >
     </>

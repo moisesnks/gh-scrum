@@ -39,7 +39,7 @@ const Asistencia = () => {
     const [selectedSection, setSelectedSection] = useState('create');
     const [initialDate, setInitialDate] = useState(new Date(2024, 4, 6));
     const [endDate, setEndDate] = useState(new Date(2024, 4, 26));
-    const apiUrl = "https://backend-lumotareas.vercel.app/logs";
+    const apiUrl = "http://localhost:3000/logs";
     const [logs, setLogs] = useState([]);
 
 
@@ -53,14 +53,17 @@ const Asistencia = () => {
 
     let sidebarItems = [
         { key: 'create', label: 'Tomar asistencia', admin: true, icon: 'fa-plus' },
-        { key: 'import', label: 'Importar asistencia (csv)', icon: 'fa-file-import' },
-        { key: 'export', label: 'Exportar asistencia', icon: 'fa-file-export' },
-        { key: 'settings', label: 'Configuración', admin: true, icon: 'fa-cog' }
+        { key: 'import', label: 'Importar asistencia (csv)', icon: 'fa-file-import', admin: true },
+        { key: 'export', label: 'Exportar asistencia', icon: 'fa-file-export', admin: true },
+        { key: 'settings', label: 'Configuración', admin: true, icon: 'fa-cog' },
+        { key: 'ver', label: 'Ver asistencia', admin: false, icon: 'fa-eye' },
 
     ];
 
     if (!isAdmin) {
         sidebarItems = sidebarItems.filter(item => !item.admin);
+    } else {
+        sidebarItems = sidebarItems.filter(item => item.admin);
     }
 
     const handleAttendanceChange = (name, date, isChecked) => {
@@ -127,6 +130,7 @@ const Asistencia = () => {
                     endDate={endDate}
                     onConfirmAttendanceChange={handleAttendanceChange}
                     onConfirmCeremonyChange={handleCeremonyChange}
+                    isAdmin={isAdmin}
                 />;
             case 'import':
                 return <h2>Importar la asistencia</h2>;
@@ -137,6 +141,15 @@ const Asistencia = () => {
                     setInitialDate(startDate);
                     setEndDate(endDate);
                 }} />;
+            case 'ver':
+                return <CsvAsistencia
+                    logs={logs}
+                    initialDate={initialDate}
+                    endDate={endDate}
+                    onConfirmAttendanceChange={handleAttendanceChange}
+                    onConfirmCeremonyChange={handleCeremonyChange}
+                    isAdmin={isAdmin}
+                />;
             default:
                 return <h2>Seleccione una opción</h2>;
         }

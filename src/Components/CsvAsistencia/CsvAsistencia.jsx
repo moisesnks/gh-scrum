@@ -21,9 +21,7 @@ const parseDateSafe = (dateStr) => {
     return null;
 };
 
-
-
-const CsvAsistencia = ({ initialDate, endDate, logs, onConfirmAttendanceChange, onConfirmCeremonyChange }) => {
+const CsvAsistencia = ({ initialDate, endDate, logs, onConfirmAttendanceChange, onConfirmCeremonyChange, isAdmin = false }) => {
     const [users, setUsers] = useState([]);
     const [rangeDates, setRangeDates] = useState([]);
     const [userAttendance, setUserAttendance] = useState({});
@@ -90,7 +88,6 @@ const CsvAsistencia = ({ initialDate, endDate, logs, onConfirmAttendanceChange, 
         setCeremonies(ceremoniesState);
     }, [logs]);
 
-
     const handleAttendanceChange = (email, date) => {
         if (window.confirm("Are you sure you want to change the attendance?")) {
             setUserAttendance(prevAttendance => {
@@ -117,8 +114,6 @@ const CsvAsistencia = ({ initialDate, endDate, logs, onConfirmAttendanceChange, 
         }
     };
 
-
-
     return (
         <div className="asistencia-csv-importer">
             <div className="asistencia-fecha-container">
@@ -137,9 +132,7 @@ const CsvAsistencia = ({ initialDate, endDate, logs, onConfirmAttendanceChange, 
                             <div className="cell">Ceremonias</div>
                             {rangeDates.map(date => (
                                 <div key={date.toISOString()} className="cell">
-                                    {ceremonies[date.toISOString()] ? (
-                                        ceremonies[date.toISOString()]
-                                    ) : (
+                                    {isAdmin ? (
                                         <select
                                             value={ceremonies[date.toISOString()] || ''}
                                             onChange={(e) => handleCeremonyChange(date.toISOString(), e.target.value)}
@@ -149,6 +142,8 @@ const CsvAsistencia = ({ initialDate, endDate, logs, onConfirmAttendanceChange, 
                                             <option value="Planning">Planning</option>
                                             <option value="Retrospective">Retrospective</option>
                                         </select>
+                                    ) : (
+                                        ceremonies[date.toISOString()] || 'N/A'
                                     )}
                                 </div>
                             ))}
@@ -156,7 +151,7 @@ const CsvAsistencia = ({ initialDate, endDate, logs, onConfirmAttendanceChange, 
                         {users.map(user => (
                             <div key={user.email} className="asistencia-table-row">
                                 <div className="cell dname">
-                                    <span> {user.displayName} </span>
+                                    <span>{user.displayName}</span>
                                     {userAttendance[user.displayName] && ( // Check if userAttendance[user.displayName] exists
                                         <CircleProgress
                                             value={userAttendance[user.displayName].attendancePercentage}
@@ -173,12 +168,11 @@ const CsvAsistencia = ({ initialDate, endDate, logs, onConfirmAttendanceChange, 
                                         className="cell checkbox-input"
                                         checked={userAttendance[user.displayName] && userAttendance[user.displayName][date.toISOString()]}
                                         onChange={() => handleAttendanceChange(user.displayName, date.toISOString())}
-                                        disabled={!ceremonies[date.toISOString()]}
+                                        disabled={!isAdmin || !ceremonies[date.toISOString()]}
                                     />
                                 ))}
                             </div>
                         ))}
-
                     </div>
                 </div>
             </div>
