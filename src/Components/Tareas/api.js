@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useAuth } from '../../Hooks/useAuth';
 
-const apiUrl = 'http://localhost:3000/tasks';
+const apiUrl = 'https://backend-lumotareas.vercel.app/tasks';
 
 const useTaskApi = () => {
     const { token } = useAuth();

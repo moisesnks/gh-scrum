@@ -39,7 +39,7 @@ const Asistencia = () => {
     const [selectedSection, setSelectedSection] = useState('create');
     const [initialDate, setInitialDate] = useState(new Date(2024, 4, 6));
     const [endDate, setEndDate] = useState(new Date(2024, 4, 26));
-    const apiUrl = "http://localhost:3000/logs";
+    const apiUrl = "https://backend-lumotareas.vercel.app/logs";
     const [logs, setLogs] = useState([]);
 
 
