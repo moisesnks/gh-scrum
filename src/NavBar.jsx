@@ -85,12 +85,6 @@ const NavBar = () => {
             )}
           </li>
         )}
-        <li>
-          <button onClick={logout}>
-            salir
-            <i className="fa fa-right-from-bracket"></i>
-            </button>
-        </li>
       </ul>
     </nav>
   );
