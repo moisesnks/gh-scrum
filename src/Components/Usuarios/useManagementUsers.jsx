@@ -24,11 +24,8 @@ const useManagementUsers = () => {
     };
 
     const addUser = async (userData) => {
-        const { displayName, email, rut, cargo, rol, horas, team } = userData;
-        const photoURL = generatePhotoURL(displayName);
         try {
-            const newUser = { displayName, email, rut, photoURL, cargo, rol, horas, team };
-            const isSuccess = await apiAddUser(newUser);
+            const isSuccess = await apiAddUser(userData);
             if (isSuccess) {
                 await refreshUsers();
                 return true;

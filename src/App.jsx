@@ -15,6 +15,7 @@ import PlannigPokerPage from "./Views/PlanningPoker";
 import RoomPage from "./Views/PlanningPoker/Room";
 import CreateRoomPage from "./Views/PlanningPoker/CreateRoom";
 import JoinRoomPage from "./Views/PlanningPoker/JoinRoom";
+import AsistenciaPage from "./Views/Asistencia/index.jsx";
 
 
 
@@ -37,6 +38,7 @@ const router = createBrowserRouter(
           <Route path="planning-poker/room/:id" element={<RoomPage />} />
           <Route path="planning-poker/create-room" element={<CreateRoomPage />} />
           <Route path="planning-poker/join-room" element={<JoinRoomPage />} />
+          <Route path="asistencia" element={<AsistenciaPage />} />
         </Route>
       </Route >
     </>

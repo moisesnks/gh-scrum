@@ -65,19 +65,19 @@ export const FormCargo = ({ editedUser = {}, handleFieldChange }) => (
     </select>
 );
 
-export const FormHoras = ({ editedUser = {}, handleFieldChange }) => (
+export const FormCapacidad = ({ editedUser = {}, handleFieldChange }) => (
     <input
         type="number"
-        value={editedUser.horas}
-        onChange={(e) => handleFieldChange(e, 'horas')}
+        value={editedUser.capacidad}
+        onChange={(e) => handleFieldChange(e, 'capacidad')}
         className="edit-input"
     />
 );
 
 export const FormTeam = ({ editedUser = {}, handleFieldChange }) => (
     <select
-        value={editedUser.team}
-        onChange={(e) => handleFieldChange(e, 'team')}
+        value={editedUser.equipo}
+        onChange={(e) => handleFieldChange(e, 'equipo')}
         className="edit-input"
     >
         {TeamOptions.map(option => (

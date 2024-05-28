@@ -1,11 +1,9 @@
 import React from "react";
-import ManagementUsers from "../../Components/Usuarios/ManagemenetUsers";
+import UsersDashboard from '../../Components/Dashboard/UsersDashboard.jsx';
 
 const UsersPage = () => {
     return (
-        <div className="container">
-            <ManagementUsers />
-        </div>
+        <UsersDashboard />
     );
 };
 

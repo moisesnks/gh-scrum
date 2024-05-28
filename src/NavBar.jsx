@@ -37,7 +37,8 @@ const NavBar = () => {
         { to: '/home/users', label: 'Usuarios', needsAdmin: true },
         // { to: '/home/profile', label: 'Perfil' },
         // { to: '/home/about', label: 'Acerca de' },
-        { to: '/home/planning-poker', label: 'Planning Poker' }
+        { to: '/home/planning-poker', label: 'Planning Poker' },
+        { to: '/home/asistencia', label: 'Asistencia' }
     ];
 
     const filteredLinks = isAdmin ? links : links.filter(link => !link.needsAdmin);
