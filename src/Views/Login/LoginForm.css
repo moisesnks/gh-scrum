@@ -1,16 +1,32 @@
+.container-general {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
+
 .login-form-container {
     width: 300px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #f8f9fa;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .login-title {
     font-size: 24px;
     margin-bottom: 20px;
     text-align: center;
+    font-family: 'Jetbrains Mono', monospace;
 }
 
 .login-form {
@@ -18,9 +34,12 @@
     flex-direction: column;
 }
 
-
+.form-group {
+    margin-bottom: 15px;
+}
 
 .form-label {
+    font-family: 'Jetbrains Mono', monospace;
     font-weight: bold;
 }
 
@@ -29,6 +48,18 @@
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    
+}
+
+.form-input:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .submit-button {
@@ -39,6 +70,11 @@
     background-color: #007bff;
     color: #fff;
     cursor: pointer;
+    font-family: 'Jetbrains Mono', monospace;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
 }
 
 .submit-button:disabled {

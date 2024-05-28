@@ -11,10 +11,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.3
+        with:
+          name: "credentials.json"
+          json: ${{ secrets.FIREBASE_CREDENTIALS }}
       - run: npm ci && npm run build
+      
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LUMO_TASKS }}'
           channelId: live
           projectId: lumo-tasks
+        env:
+          FIREBASE_CLI_EXPERIMENTS: webframeworks
+          
