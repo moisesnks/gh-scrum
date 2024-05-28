@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import Api from './api';
-
-const useTaskList = () => {
+import { useAuth } from '../../Hooks/useAuth';
+const useTaskList = (asignadas) => {
+    const { user } = useAuth();
+    const uid = user.uid;
     const api = Api();
     const [tasks, setTasks] = useState([]);
     const [error, setError] = useState(null);
@@ -10,6 +12,8 @@ const useTaskList = () => {
     const [selectAll, setSelectAll] = useState(false);
     const [active, setActive] = useState('all');
 
+
+
     useEffect(() => {
         const fetchTasks = async () => {
             try {
@@ -17,6 +21,14 @@ const useTaskList = () => {
                 const tasks = await api.getTasks();
                 setTasks(tasks);
                 setFilteredTasks(tasks);
+                if (asignadas) {
+                    let tasksDelResponsable = tasks.filter(task => {
+                        return task.responsables.some(responsable => responsable.id === uid);
+                    });
+                    setFilteredTasks(tasksDelResponsable);
+                    setTasks(tasksDelResponsable);
+                }
+
             } catch (error) {
                 setError(error);
             } finally {
@@ -26,7 +38,6 @@ const useTaskList = () => {
 
         fetchTasks();
     }, []);
-
 
     const filterTasks = (status) => {
         if (status === 'all') {

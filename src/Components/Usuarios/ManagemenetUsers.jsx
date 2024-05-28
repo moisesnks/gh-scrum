@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useManagementUsers from './useManagementUsers';
 import UserCard from './UserCard';
-import AddUserModal from './AddUserModal';
 import Spinner from '../../utils/Spinner';
 import './ManagementUsers.css';
 
@@ -10,7 +9,6 @@ const ManagementUsers = () => {
         users,
         error,
         loading,
-        addUser,
         getUsers,
         updateUser,
         deleteUser
@@ -18,10 +16,9 @@ const ManagementUsers = () => {
 
     useEffect(() => {
         getUsers();
-    }, []); //
+    }, []);
 
     const [selectedUsers, setSelectedUsers] = useState([]);
-    const [showAddUserModal, setShowAddUserModal] = useState(false);
 
     const handleDeleteSelectedUsers = async () => {
         const promises = selectedUsers.map(userId => deleteUser(userId));
@@ -33,15 +30,6 @@ const ManagementUsers = () => {
         }
 
         setSelectedUsers([]);
-    };
-
-    const handleAddUser = async (userData) => {
-        const success = await addUser(userData);
-        if (success) {
-            setShowAddUserModal(false);
-        } else {
-            console.error('Error al agregar usuario');
-        }
     };
 
     const handleSelectAllUsers = () => {
@@ -80,10 +68,6 @@ const ManagementUsers = () => {
                     type="checkbox"
                     checked={selectedUsers.length === users.length}
                     onChange={handleSelectAllUsers}
-                />
-                <AddUserModal
-                    onClose={() => setShowAddUserModal(false)}
-                    addUser={handleAddUser}
                 />
                 <button
                     className="delete-selected-button"

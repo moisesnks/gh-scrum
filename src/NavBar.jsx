@@ -28,17 +28,17 @@ const NavBar = () => {
     setIsSubMenuOpen(!isSubMenuOpen);
   };
 
-  const links = [
-    { to: "/home", label: "Home" },
-    { to: "/home/form", label: "Crear Tarea", needsAdmin: true },
-    // { to: '/home/kanban', label: 'Kanban' },
-    { to: "/home/metrics", label: "Métricas", needsAdmin: true },
-    // { to: '/home/teams', label: 'Equipos', needsAdmin: true },
-    { to: "/home/users", label: "Usuarios", needsAdmin: true },
-    // { to: '/home/profile', label: 'Perfil' },
-    // { to: '/home/about', label: 'Acerca de' },
-    { to: "/home/planning-poker", label: "Planning Poker" },
-  ];
+    const links = [
+        { to: '/home', label: 'Home' },
+        { to: '/home/form', label: 'Crear Tarea', needsAdmin: true },
+        // { to: '/home/kanban', label: 'Kanban' },
+        { to: '/home/metrics', label: 'Métricas', needsAdmin: true },
+        // { to: '/home/teams', label: 'Equipos', needsAdmin: true },
+        { to: '/home/users', label: 'Usuarios', needsAdmin: true },
+        // { to: '/home/profile', label: 'Perfil' },
+        // { to: '/home/about', label: 'Acerca de' },
+        { to: '/home/planning-poker', label: 'Planning Poker' }
+    ];
 
   const filteredLinks = isAdmin
     ? links
