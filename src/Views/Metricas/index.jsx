@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BurndownChart from '../../Components/Metricas/BurndownChart';
 import Sidebar from '../../Components/Sidebar/Sidebar';
+import Spinner from '../../utils/Spinner';
 
 const Metricas = () => {
     const [burndownData, setBurndownData] = useState([]);
@@ -44,7 +45,7 @@ const Metricas = () => {
 
     const renderContent = () => {
         if (isLoading) {
-            return <h2>Cargando...</h2>;
+            return <Spinner text={"Cargando datos..."} />;
         }
 
         switch (selectedSection) {
